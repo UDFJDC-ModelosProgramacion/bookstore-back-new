@@ -141,15 +141,22 @@ public class PrizeService {
 	@Transactional
 	public void deletePrize(Long prizeId) throws EntityNotFoundException, IllegalOperationException {
 		log.info("Inicia proceso de borrar premio con id = {0}", prizeId);
-		Optional<PrizeEntity> prizeEntity = prizeRepository.findById(prizeId);
-		if (prizeEntity.isEmpty())
+		Optional<PrizeEntity> prizeOptional = prizeRepository.findById(prizeId);
+		if (prizeOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.PRIZE_NOT_FOUND);
 
-		if (prizeEntity.get().getAuthor() != null) {
+		PrizeEntity prizeEntity = prizeOptional.get();
+
+		if (prizeEntity.getAuthor() != null) {
 			throw new IllegalOperationException("Unable to delete prize because it has an associated author");
 		}
 
-		prizeRepository.deleteById(prizeId);
+		if (prizeEntity.getOrganization() != null) {
+			OrganizationEntity organizationEntity = prizeEntity.getOrganization();
+			organizationEntity.setPrize(null);
+			prizeEntity.setOrganization(null);
+		}
+		prizeRepository.delete(prizeEntity);
 		log.info("Termina proceso de borrar premio con id = {0}", prizeId);
 	}
 }

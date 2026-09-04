@@ -68,9 +68,9 @@ public class OrganizationController {
 	 */
 	@GetMapping
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<OrganizationDetailDTO> findAll() {
+	public List<OrganizationDTO> findAll() {
 		List<OrganizationEntity> organizations = organizationService.getOrganizations();
-		return modelMapper.map(organizations, new TypeToken<List<OrganizationDetailDTO>>() {
+		return modelMapper.map(organizations, new TypeToken<List<OrganizationDTO>>() {
 		}.getType());
 	}
 
@@ -83,9 +83,9 @@ public class OrganizationController {
 	 */
 	@GetMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public OrganizationDetailDTO findOne(@PathVariable Long id) throws EntityNotFoundException {
+	public OrganizationDTO findOne(@PathVariable Long id) throws EntityNotFoundException {
 		OrganizationEntity organizationEntity = organizationService.getOrganization(id);
-		return modelMapper.map(organizationEntity, OrganizationDetailDTO.class);
+		return modelMapper.map(organizationEntity, OrganizationDTO.class);
 	}
 
 	/**
