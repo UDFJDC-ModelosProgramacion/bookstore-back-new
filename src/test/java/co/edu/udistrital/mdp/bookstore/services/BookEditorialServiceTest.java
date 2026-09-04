@@ -47,7 +47,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 /**
  * Pruebas de logica de la relacion Book - Editorial
  *
- * @author ISIS2603
+ * @author Jose Bocanegra
  */
 @DataJpaTest
 @Transactional

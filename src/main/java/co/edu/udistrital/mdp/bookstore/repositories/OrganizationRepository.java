@@ -33,7 +33,7 @@ import co.edu.udistrital.mdp.bookstore.entities.OrganizationEntity;
 /**
  * Interface that persists an organization
  *
- * @author ISIS2603
+ * @author Jose Bocanegra
  *
  */
 

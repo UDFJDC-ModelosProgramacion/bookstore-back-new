@@ -43,7 +43,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * Clase que implementa el recurso "books/{id}/editorial".
  *
- * @author ISIS2603
+ * @author Jose Bocanegra
  * @version 1.0
  */
 @RequiredArgsConstructor

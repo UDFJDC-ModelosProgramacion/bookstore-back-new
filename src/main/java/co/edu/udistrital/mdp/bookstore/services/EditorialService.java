@@ -43,7 +43,7 @@ import lombok.extern.slf4j.Slf4j;
  * Clase que implementa la conexion con la persistencia para la entidad de
  * Editorial.
  *
- * @author ISIS2603
+ * @author Jose Bocanegra
  */
 
 @RequiredArgsConstructor
@@ -92,11 +92,12 @@ public class EditorialService {
 	@Transactional
 	public EditorialEntity getEditorial(Long editorialId) throws EntityNotFoundException {
 		log.info("Inicia proceso de consultar la editorial con id = {0}", editorialId);
-		Optional<EditorialEntity> editorial = editorialRepository.findById(editorialId);
-		if (editorial.isEmpty())
+		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);
+		if (editorialOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.EDITORIAL_NOT_FOUND);
 		log.info("Termina proceso de consultar la editorial con id = {0}", editorialId);
-		return editorial.get();
+		EditorialEntity editorialEntity = editorialOptional.get();
+		return editorialEntity;
 	}
 
 	/**
@@ -110,8 +111,8 @@ public class EditorialService {
 	@Transactional
 	public EditorialEntity updateEditorial(Long editorialId, EditorialEntity editorial) throws EntityNotFoundException {
 		log.info("Inicia proceso de actualizar la editorial con id = {0}", editorialId);
-		Optional<EditorialEntity> editorialEntity = editorialRepository.findById(editorialId);
-		if (editorialEntity.isEmpty())
+		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);
+		if (editorialOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.EDITORIAL_NOT_FOUND);
 
 		editorial.setId(editorialId);
@@ -128,11 +129,13 @@ public class EditorialService {
 	@Transactional
 	public void deleteEditorial(Long editorialId) throws EntityNotFoundException, IllegalOperationException {
 		log.info("Inicia proceso de borrar la editorial con id = {0}", editorialId);
-		Optional<EditorialEntity> editorialEntity = editorialRepository.findById(editorialId);
-		if (editorialEntity.isEmpty())
+		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);
+		if (editorialOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.EDITORIAL_NOT_FOUND);
 
-		List<BookEntity> books = editorialEntity.get().getBooks();
+		EditorialEntity editorialEntity = editorialOptional.get();
+
+		List<BookEntity> books = editorialEntity.getBooks();
 
 		if (!books.isEmpty()) {
 			throw new IllegalOperationException(

@@ -48,7 +48,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 /**
  * Pruebas de logica de Organizations
  * 
- * @author ISIS2603
+ * @author Jose Bocanegra
  */
 @DataJpaTest
 @Transactional

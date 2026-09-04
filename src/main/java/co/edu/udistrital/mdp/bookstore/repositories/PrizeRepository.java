@@ -31,7 +31,7 @@ import co.edu.udistrital.mdp.bookstore.entities.PrizeEntity;
 /**
  * Interface that persists an prize
  *
- * @author ISIS2603
+ * @author Jose Bocanegra
  *
  */
 

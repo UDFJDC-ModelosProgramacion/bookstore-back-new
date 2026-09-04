@@ -49,7 +49,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * Clase que implementa el recurso "prizes".
  *
- * @author ISIS2603
+ * @author Jose Bocanegra
  */
 @RequiredArgsConstructor
 @RestController

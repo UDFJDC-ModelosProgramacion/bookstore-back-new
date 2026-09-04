@@ -45,7 +45,7 @@ import lombok.extern.slf4j.Slf4j;
  * Clase que implementa la conexion con la persistencia para la entidad de
  * Author.
  *
- * @author ISIS2603
+ * @author Jose Bocanegra
  */
 
 @RequiredArgsConstructor
@@ -93,11 +93,14 @@ public class AuthorService {
 	@Transactional
 	public AuthorEntity getAuthor(Long authorId) throws EntityNotFoundException {
 		log.info("Inicia proceso de consultar el autor con id = {0}", authorId);
-		Optional<AuthorEntity> authorEntity = authorRepository.findById(authorId);
-		if (authorEntity.isEmpty())
+		Optional<AuthorEntity> authorOptional = authorRepository.findById(authorId);
+
+		if (authorOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.AUTHOR_NOT_FOUND);
+
+		AuthorEntity authorEntity = authorOptional.get();
 		log.info("Termina proceso de consultar el autor con id = {0}", authorId);
-		return authorEntity.get();
+		return authorEntity;
 	}
 
 	/**
@@ -110,8 +113,8 @@ public class AuthorService {
 	@Transactional
 	public AuthorEntity updateAuthor(Long authorId, AuthorEntity author) throws EntityNotFoundException {
 		log.info("Inicia proceso de actualizar el autor con id = {0}", authorId);
-		Optional<AuthorEntity> authorEntity = authorRepository.findById(authorId);
-		if (authorEntity.isEmpty())
+		Optional<AuthorEntity> authorOptional = authorRepository.findById(authorId);
+		if (authorOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.AUTHOR_NOT_FOUND);
 		log.info("Termina proceso de actualizar el autor con id = {0}", authorId);
 		author.setId(authorId);
@@ -127,15 +130,17 @@ public class AuthorService {
 	@Transactional
 	public void deleteAuthor(Long authorId) throws IllegalOperationException, EntityNotFoundException {
 		log.info("Inicia proceso de borrar el autor con id = {0}", authorId);
-		Optional<AuthorEntity> authorEntity = authorRepository.findById(authorId);
-		if (authorEntity.isEmpty())
+		Optional<AuthorEntity> authorOptional = authorRepository.findById(authorId);
+		if (authorOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.AUTHOR_NOT_FOUND);
 
-		List<BookEntity> books = authorEntity.get().getBooks();
+		AuthorEntity authorEntity = authorOptional.get();
+
+		List<BookEntity> books = authorEntity.getBooks();
 		if (!books.isEmpty())
 			throw new IllegalOperationException("Unable to delete the author because he/she has associated books");
 
-		List<PrizeEntity> prizes = authorEntity.get().getPrizes();
+		List<PrizeEntity> prizes = authorEntity.getPrizes();
 		if (!prizes.isEmpty())
 			throw new IllegalOperationException("Unable to delete the author because he/she has associated prizes");
 

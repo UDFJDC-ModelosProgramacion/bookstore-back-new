@@ -43,7 +43,7 @@ import lombok.extern.slf4j.Slf4j;
  * Clase que implementa la conexion con la persistencia para la entidad de
  * Organizacion.
  *
- * @author ISIS2603
+ * @author Jose Bocanegra
  */
 
 @RequiredArgsConstructor
@@ -92,13 +92,16 @@ public class OrganizationService {
 	@Transactional
 	public OrganizationEntity getOrganization(Long organizationId) throws EntityNotFoundException {
 		log.info("Inicia proceso de consultar organizacion con id = {0}", organizationId);
-		Optional<OrganizationEntity> organizationEntity = organizationRepository.findById(organizationId);
+		Optional<OrganizationEntity> organizationOptional = organizationRepository.findById(organizationId);
 
-		if (organizationEntity.isEmpty())
+		if (organizationOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.ORGANIZATION_NOT_FOUND);
 
 		log.info("Termina proceso de consultar organizacion con id = {0}", organizationId);
-		return organizationEntity.get();
+
+		OrganizationEntity organizationEntity = organizationOptional.get();
+
+		return organizationEntity;
 	}
 
 	/**
@@ -114,8 +117,8 @@ public class OrganizationService {
 	public OrganizationEntity updateOrganization(Long organizationId, OrganizationEntity organization)
 			throws EntityNotFoundException {
 		log.info("Inicia proceso de actualizar organizacion con id = {0}", organizationId);
-		Optional<OrganizationEntity> organizationEntity = organizationRepository.findById(organizationId);
-		if (organizationEntity.isEmpty())
+		Optional<OrganizationEntity> organizationOptional = organizationRepository.findById(organizationId);
+		if (organizationOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.ORGANIZATION_NOT_FOUND);
 
 		organization.setId(organizationId);
@@ -132,11 +135,13 @@ public class OrganizationService {
 	@Transactional
 	public void deleteOrganization(Long organizationId) throws EntityNotFoundException, IllegalOperationException {
 		log.info("Inicia proceso de borrar organizacion con id = {0}", organizationId);
-		Optional<OrganizationEntity> organizationEntity = organizationRepository.findById(organizationId);
-		if (organizationEntity.isEmpty())
+		Optional<OrganizationEntity> organizationOptional = organizationRepository.findById(organizationId);
+		if (organizationOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.ORGANIZATION_NOT_FOUND);
 
-		PrizeEntity prize = organizationEntity.get().getPrize();
+		OrganizationEntity organizationEntity = organizationOptional.get();
+
+		PrizeEntity prize = organizationEntity.getPrize();
 		if (prize != null)
 			throw new IllegalOperationException("Unable to delete organization because it has a prize");
 

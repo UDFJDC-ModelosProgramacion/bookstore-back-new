@@ -42,7 +42,7 @@ import lombok.extern.slf4j.Slf4j;
  * Clase que implementa la conexion con la persistencia para la relación entre
  * la entidad Prize y Author
  *
- * @author ISIS2603
+ * @author Jose Bocanegra
  */
 @RequiredArgsConstructor
 @Slf4j
@@ -65,17 +65,20 @@ public class PrizeAuthorService {
 	@Transactional
 	public AuthorEntity addAuthor(Long authorId, Long prizeId) throws EntityNotFoundException {
 		log.info("Inicia proceso de asociar el autor con id = {0} al premio con id = " + prizeId, authorId);
-		Optional<AuthorEntity> autorEntity = authorRepository.findById(authorId);
-		if (autorEntity.isEmpty())
+		Optional<AuthorEntity> autorOptional = authorRepository.findById(authorId);
+		if (autorOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.AUTHOR_NOT_FOUND);
 
-		Optional<PrizeEntity> prizeEntity = prizeRepository.findById(prizeId);
-		if (prizeEntity.isEmpty())
+		Optional<PrizeEntity> prizeOptional = prizeRepository.findById(prizeId);
+		if (prizeOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.PRIZE_NOT_FOUND);
 
-		prizeEntity.get().setAuthor(autorEntity.get());
+		AuthorEntity autorEntity = autorOptional.get();
+		PrizeEntity prizeEntity = prizeOptional.get();
+
+		prizeEntity.setAuthor(autorEntity);
 		log.info("Termina proceso de asociar el autor con id = {0} al premio con id = {1}", authorId, prizeId);
-		return autorEntity.get();
+		return autorEntity;
 	}
 
 	/**
@@ -90,11 +93,12 @@ public class PrizeAuthorService {
 	@Transactional
 	public AuthorEntity getAuthor(Long prizeId) throws EntityNotFoundException {
 		log.info("Inicia proceso de consultar el autor del premio con id = {0}", prizeId);
-		Optional<PrizeEntity> prizeEntity = prizeRepository.findById(prizeId);
-		if (prizeEntity.isEmpty())
+		Optional<PrizeEntity> prizeOptional = prizeRepository.findById(prizeId);
+		if (prizeOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.PRIZE_NOT_FOUND);
 
-		AuthorEntity authorEntity = prizeEntity.get().getAuthor();
+		PrizeEntity prizeEntity = prizeOptional.get();
+		AuthorEntity authorEntity = prizeEntity.getAuthor();
 
 		if (authorEntity == null)
 			throw new EntityNotFoundException("The author was not found");
@@ -115,17 +119,20 @@ public class PrizeAuthorService {
 	@Transactional
 	public AuthorEntity replaceAuthor(Long prizeId, Long authorId) throws EntityNotFoundException {
 		log.info("Inicia proceso de actualizar el autor del premio premio con id = {0}", prizeId);
-		Optional<AuthorEntity> autorEntity = authorRepository.findById(authorId);
-		if (autorEntity.isEmpty())
+		Optional<AuthorEntity> autorOptional = authorRepository.findById(authorId);
+		if (autorOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.AUTHOR_NOT_FOUND);
 
-		Optional<PrizeEntity> prizeEntity = prizeRepository.findById(prizeId);
-		if (prizeEntity.isEmpty())
+		Optional<PrizeEntity> prizeOptional = prizeRepository.findById(prizeId);
+		if (prizeOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.PRIZE_NOT_FOUND);
 
-		prizeEntity.get().setAuthor(autorEntity.get());
+		AuthorEntity autorEntity = autorOptional.get();
+		PrizeEntity prizeEntity = prizeOptional.get();
+
+		prizeEntity.setAuthor(autorEntity);
 		log.info("Termina proceso de asociar el autor con id = {0} al premio con id = " + prizeId, authorId);
-		return autorEntity.get();
+		return autorEntity;
 	}
 
 	/**
@@ -138,18 +145,20 @@ public class PrizeAuthorService {
 	@Transactional
 	public void removeAuthor(Long prizeId) throws EntityNotFoundException {
 		log.info("Inicia proceso de borrar el autor del premio con id = {0}", prizeId);
-		Optional<PrizeEntity> prizeEntity = prizeRepository.findById(prizeId);
-		if (prizeEntity.isEmpty())
+		Optional<PrizeEntity> prizeOptional = prizeRepository.findById(prizeId);
+		if (prizeOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.PRIZE_NOT_FOUND);
 
-		if (prizeEntity.get().getAuthor() == null) {
+		PrizeEntity prizeEntity = prizeOptional.get();
+
+		if (prizeEntity.getAuthor() == null) {
 			throw new EntityNotFoundException("El premio no tiene autor");
 		}
-		Optional<AuthorEntity> authorEntity = authorRepository.findById(prizeEntity.get().getAuthor().getId());
+		Optional<AuthorEntity> authorOptional = authorRepository.findById(prizeEntity.getAuthor().getId());
 
-		authorEntity.ifPresent(author -> {
-			prizeEntity.get().setAuthor(null);
-			author.getPrizes().remove(prizeEntity.get());
+		authorOptional.ifPresent(author -> {
+			prizeEntity.setAuthor(null);
+			author.getPrizes().remove(prizeEntity);
 		});
 
 		log.info("Termina proceso de borrar el autor del premio con id = " + prizeId);

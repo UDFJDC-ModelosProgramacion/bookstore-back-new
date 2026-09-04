@@ -20,7 +20,7 @@ pipeline {
          // Build artifacts
          steps {
             script {
-               docker.image('citools-isis2603:latest').inside('-v $HOME/.m2:/root/.m2:z -u root') {
+               docker.image('citools-Jose Bocanegra:latest').inside('-v $HOME/.m2:/root/.m2:z -u root') {
                   sh '''
                      java -version
                      mvn clean install
@@ -33,7 +33,7 @@ pipeline {
          // Run unit tests
          steps {
             script {
-               docker.image('citools-isis2603:latest').inside('-v $HOME/.m2:/root/.m2:z -u root') {                  
+               docker.image('citools-Jose Bocanegra:latest').inside('-v $HOME/.m2:/root/.m2:z -u root') {                  
                   sh '''
                      mvn test
                   '''
@@ -45,7 +45,7 @@ pipeline {
          // Run static analysis
          steps {
             script {
-               docker.image('citools-isis2603:latest').inside('-v $HOME/.m2:/root/.m2:z -u root') {
+               docker.image('citools-Jose Bocanegra:latest').inside('-v $HOME/.m2:/root/.m2:z -u root') {
                   sh '''
                      mvn sonar:sonar -Dsonar.token=${SONAR_TOKEN} -Dsonar.host.url=${SONARQUBE_URL}
                   '''

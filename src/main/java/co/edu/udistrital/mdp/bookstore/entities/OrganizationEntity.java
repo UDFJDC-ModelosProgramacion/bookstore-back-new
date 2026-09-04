@@ -35,7 +35,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 /**
  * Clase que representa una organizacion en la persistencia
  *
- * @author ISIS2603
+ * @author Jose Bocanegra
  */
 
 @Data

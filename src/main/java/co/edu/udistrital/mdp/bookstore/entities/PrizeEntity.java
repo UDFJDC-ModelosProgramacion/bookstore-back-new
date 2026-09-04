@@ -37,7 +37,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 /**
  * Clase que representa un premio en la persistencia
  *
- * @author ISIS2603
+ * @author Jose Bocanegra
  */
 
 @Data

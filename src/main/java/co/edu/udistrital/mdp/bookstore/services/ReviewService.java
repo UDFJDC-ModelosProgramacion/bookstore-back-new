@@ -44,7 +44,7 @@ import lombok.extern.slf4j.Slf4j;
  * Clase que implementa la conexion con la persistencia para la entidad de
  * Reseña(Review).
  *
- * @author ISIS2603
+ * @author Jose Bocanegra
  */
 @RequiredArgsConstructor
 @Slf4j
@@ -67,11 +67,12 @@ public class ReviewService {
 	@Transactional
 	public ReviewEntity createReview(Long bookId, ReviewEntity reviewEntity) throws EntityNotFoundException {
 		log.info("Inicia proceso de crear review");
-		Optional<BookEntity> bookEntity = bookRepository.findById(bookId);
-		if (bookEntity.isEmpty())
+		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
+		if (bookOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.BOOK_NOT_FOUND);
 
-		reviewEntity.setBook(bookEntity.get());
+		BookEntity bookEntity = bookOptional.get();
+		reviewEntity.setBook(bookEntity);
 
 		log.info("Termina proceso de creación del review");
 		return reviewRepository.save(reviewEntity);
@@ -87,12 +88,14 @@ public class ReviewService {
 	@Transactional
 	public List<ReviewEntity> getReviews(Long bookId) throws EntityNotFoundException {
 		log.info("Inicia proceso de consultar los reviews asociados al book con id = {0}", bookId);
-		Optional<BookEntity> bookEntity = bookRepository.findById(bookId);
-		if (bookEntity.isEmpty())
+		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
+		if (bookOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.BOOK_NOT_FOUND);
 
 		log.info("Termina proceso de consultar los reviews asociados al book con id = {0}", bookId);
-		return bookEntity.get().getReviews();
+
+		BookEntity bookEntity = bookOptional.get();
+		return bookEntity.getReviews();
 	}
 
 	/**
@@ -108,12 +111,12 @@ public class ReviewService {
 	public ReviewEntity getReview(Long bookId, Long reviewId) throws EntityNotFoundException {
 		log.info("Inicia proceso de consultar el review con id = {0} del libro con id = " + bookId,
 				reviewId);
-		Optional<BookEntity> bookEntity = bookRepository.findById(bookId);
-		if (bookEntity.isEmpty())
+		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
+		if (bookOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.BOOK_NOT_FOUND);
 
-		Optional<ReviewEntity> reviewEntity = reviewRepository.findById(reviewId);
-		if (reviewEntity.isEmpty())
+		Optional<ReviewEntity> reviewOptional = reviewRepository.findById(reviewId);
+		if (reviewOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.REVIEW_NOT_FOUND);
 
 		log.info("Termina proceso de consultar el review con id = {0} del libro con id = " + bookId,
@@ -134,16 +137,17 @@ public class ReviewService {
 	public ReviewEntity updateReview(Long bookId, Long reviewId, ReviewEntity review) throws EntityNotFoundException {
 		log.info("Inicia proceso de actualizar el review con id = {0} del libro con id = " + bookId,
 				reviewId);
-		Optional<BookEntity> bookEntity = bookRepository.findById(bookId);
-		if (bookEntity.isEmpty())
+		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
+		if (bookOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.BOOK_NOT_FOUND);
 
-		Optional<ReviewEntity> reviewEntity = reviewRepository.findById(reviewId);
-		if (reviewEntity.isEmpty())
+		Optional<ReviewEntity> reviewOptional = reviewRepository.findById(reviewId);
+		if (reviewOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.REVIEW_NOT_FOUND);
 
+		BookEntity bookEntity = bookOptional.get();
 		review.setId(reviewId);
-		review.setBook(bookEntity.get());
+		review.setBook(bookEntity);
 		log.info("Termina proceso de actualizar el review con id = {0} del libro con id = " + bookId,
 				reviewId);
 		return reviewRepository.save(review);
@@ -162,15 +166,17 @@ public class ReviewService {
 	public void deleteReview(Long bookId, Long reviewId) throws EntityNotFoundException, IllegalOperationException {
 		log.info("Inicia proceso de borrar el review con id = {0} del libro con id = " + bookId,
 				reviewId);
-		Optional<BookEntity> bookEntity = bookRepository.findById(bookId);
-		if (bookEntity.isEmpty())
+		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
+		if (bookOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.BOOK_NOT_FOUND);
 
-		Optional<ReviewEntity> reviewEntity = reviewRepository.findById(reviewId);
-		if (reviewEntity.isEmpty())
+		Optional<ReviewEntity> reviewOptional = reviewRepository.findById(reviewId);
+		if (reviewOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.REVIEW_NOT_FOUND);
 
-		if (!reviewEntity.get().getBook().getId().equals(bookId))
+		ReviewEntity reviewEntity = reviewOptional.get();
+
+		if (!reviewEntity.getBook().getId().equals(bookId))
 			throw new IllegalOperationException(ErrorMessage.REVIEW_NOT_ASSOCIATED_TO_BOOK);
 
 		reviewRepository.deleteById(reviewId);

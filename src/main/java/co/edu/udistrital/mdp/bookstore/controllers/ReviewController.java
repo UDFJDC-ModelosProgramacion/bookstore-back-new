@@ -48,7 +48,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * Clase que implementa el recurso "reviews".
  *
- * @author ISIS2603
+ * @author Jose Bocanegra
  * @version 1.0
  */
 @RequiredArgsConstructor

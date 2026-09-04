@@ -45,7 +45,7 @@ import lombok.extern.slf4j.Slf4j;
  * Clase que implementa la conexión con la persistencia para la relación entre
  * la entidad Editorial y Book.
  *
- * @author ISIS2603
+ * @author Jose Bocanegra
  */
 @RequiredArgsConstructor
 @Slf4j
@@ -69,17 +69,20 @@ public class EditorialBookService {
 	public BookEntity addBook(Long bookId, Long editorialId) throws EntityNotFoundException {
 		log.info("Inicia proceso de agregarle un libro a la editorial con id = {0}", editorialId);
 
-		Optional<BookEntity> bookEntity = bookRepository.findById(bookId);
-		if (bookEntity.isEmpty())
+		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
+		if (bookOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.BOOK_NOT_FOUND);
 
-		Optional<EditorialEntity> editorialEntity = editorialRepository.findById(editorialId);
-		if (editorialEntity.isEmpty())
+		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);
+		if (editorialOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.EDITORIAL_NOT_FOUND);
 
-		bookEntity.get().setEditorial(editorialEntity.get());
+		BookEntity bookEntity = bookOptional.get();
+		EditorialEntity editorialEntity = editorialOptional.get();
+
+		bookEntity.setEditorial(editorialEntity);
 		log.info("Termina proceso de agregarle un libro a la editorial con id = {0}", editorialId);
-		return bookEntity.get();
+		return bookEntity;
 	}
 
 	/**
@@ -92,11 +95,12 @@ public class EditorialBookService {
 	@Transactional
 	public List<BookEntity> getBooks(Long editorialId) throws EntityNotFoundException {
 		log.info("Inicia proceso de consultar los libros asociados a la editorial con id = {0}", editorialId);
-		Optional<EditorialEntity> editorialEntity = editorialRepository.findById(editorialId);
-		if (editorialEntity.isEmpty())
+		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);
+		if (editorialOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.EDITORIAL_NOT_FOUND);
 
-		return editorialEntity.get().getBooks();
+		EditorialEntity editorialEntity = editorialOptional.get();
+		return editorialEntity.getBooks();
 	}
 
 	/**
@@ -112,20 +116,23 @@ public class EditorialBookService {
 	public BookEntity getBook(Long editorialId, Long bookId) throws EntityNotFoundException, IllegalOperationException {
 		log.info("Inicia proceso de consultar el libro con id = {0} de la editorial con id = " + editorialId, bookId);
 
-		Optional<EditorialEntity> editorialEntity = editorialRepository.findById(editorialId);
-		if (editorialEntity.isEmpty())
+		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);
+		if (editorialOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.EDITORIAL_NOT_FOUND);
 
-		Optional<BookEntity> bookEntity = bookRepository.findById(bookId);
-		if (bookEntity.isEmpty())
+		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
+		if (bookOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.BOOK_NOT_FOUND);
 
 		log.info("Termina proceso de consultar el libro con id = {0} de la editorial con id = " + editorialId, bookId);
 
-		if (!editorialEntity.get().getBooks().contains(bookEntity.get()))
+		EditorialEntity editorialEntity = editorialOptional.get();
+		BookEntity bookEntity = bookOptional.get();
+
+		if (!editorialEntity.getBooks().contains(bookEntity))
 			throw new IllegalOperationException("The book is not associated to the editorial");
 
-		return bookEntity.get();
+		return bookEntity;
 	}
 
 	/**
@@ -140,16 +147,18 @@ public class EditorialBookService {
 	@Transactional
 	public List<BookEntity> replaceBooks(Long editorialId, List<BookEntity> books) throws EntityNotFoundException {
 		log.info("Inicia proceso de actualizar la editorial con id = {0}", editorialId);
-		Optional<EditorialEntity> editorialEntity = editorialRepository.findById(editorialId);
-		if (editorialEntity.isEmpty())
+		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);
+		if (editorialOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.EDITORIAL_NOT_FOUND);
 
-		for (BookEntity book : books) {
-			Optional<BookEntity> b = bookRepository.findById(book.getId());
-			if (b.isEmpty())
-				throw new EntityNotFoundException(ErrorMessage.BOOK_NOT_FOUND);
+		EditorialEntity editorialEntity = editorialOptional.get();
 
-			b.get().setEditorial(editorialEntity.get());
+		for (BookEntity book : books) {
+			Optional<BookEntity> bookOptional = bookRepository.findById(book.getId());
+			if (bookOptional.isEmpty())
+				throw new EntityNotFoundException(ErrorMessage.BOOK_NOT_FOUND);
+			BookEntity bookEntity = bookOptional.get();
+			bookEntity.setEditorial(editorialEntity);
 		}
 		return books;
 	}

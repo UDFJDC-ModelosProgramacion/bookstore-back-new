@@ -31,7 +31,7 @@ import co.edu.udistrital.mdp.bookstore.entities.AuthorEntity;
 /**
  * Interface that persists an author
  *
- * @author ISIS2603
+ * @author Jose Bocanegra
  *
  */
 

@@ -44,7 +44,7 @@ import lombok.extern.slf4j.Slf4j;
  * Clase que implementa la conexion con la persistencia para la entidad de
  * Prize.
  *
- * @author ISIS2603
+ * @author Jose Bocanegra
  */
 @RequiredArgsConstructor
 @Slf4j
@@ -70,12 +70,14 @@ public class PrizeService {
 		if (prizeEntity.getOrganization() == null)
 			throw new IllegalOperationException("Organization is not valid");
 
-		Optional<OrganizationEntity> organizationEntity = organizationRepository
+		Optional<OrganizationEntity> organizationOptional = organizationRepository
 				.findById(prizeEntity.getOrganization().getId());
-		if (organizationEntity.isEmpty())
+		if (organizationOptional.isEmpty())
 			throw new IllegalOperationException("Organization is not valid");
 
-		if (organizationEntity.get().getPrize() != null)
+		OrganizationEntity organizationEntity = organizationOptional.get();
+
+		if (organizationEntity.getPrize() != null)
 			throw new IllegalOperationException("Organization already holds a prize");
 
 		log.info("Termina proceso de creación de premio");
@@ -103,12 +105,13 @@ public class PrizeService {
 	@Transactional
 	public PrizeEntity getPrize(Long prizeId) throws EntityNotFoundException {
 		log.info("Inicia proceso de consultar premio con id = {0}", prizeId);
-		Optional<PrizeEntity> prizeEntity = prizeRepository.findById(prizeId);
-		if (prizeEntity.isEmpty())
+		Optional<PrizeEntity> prizeOptional = prizeRepository.findById(prizeId);
+		if (prizeOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.PRIZE_NOT_FOUND);
 
 		log.info("Termina proceso de consultar premio con id = {0}", prizeId);
-		return prizeEntity.get();
+		PrizeEntity prizeEntity = prizeOptional.get();
+		return prizeEntity;
 	}
 
 	/**
@@ -121,8 +124,8 @@ public class PrizeService {
 	@Transactional
 	public PrizeEntity updatePrize(Long prizeId, PrizeEntity prize) throws EntityNotFoundException {
 		log.info("Inicia proceso de actualizar premio con id = {0}", prizeId);
-		Optional<PrizeEntity> prizeEntity = prizeRepository.findById(prizeId);
-		if (prizeEntity.isEmpty())
+		Optional<PrizeEntity> prizeOptional = prizeRepository.findById(prizeId);
+		if (prizeOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.PRIZE_NOT_FOUND);
 
 		prize.setId(prizeId);

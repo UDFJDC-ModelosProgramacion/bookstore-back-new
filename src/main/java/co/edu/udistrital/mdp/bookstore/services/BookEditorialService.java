@@ -58,18 +58,21 @@ public class BookEditorialService {
 	@Transactional
 	public BookEntity replaceEditorial(Long bookId, Long editorialId) throws EntityNotFoundException {
 		log.info("Inicia proceso de actualizar libro con id = {0}", bookId);
-		Optional<BookEntity> bookEntity = bookRepository.findById(bookId);
-		if (bookEntity.isEmpty())
+		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
+		if (bookOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.BOOK_NOT_FOUND);
 
-		Optional<EditorialEntity> editorialEntity = editorialRepository.findById(editorialId);
-		if (editorialEntity.isEmpty())
+		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);
+		if (editorialOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.EDITORIAL_NOT_FOUND);
 
-		bookEntity.get().setEditorial(editorialEntity.get());
+		BookEntity bookEntity = bookOptional.get();
+		EditorialEntity editorialEntity = editorialOptional.get();
+
+		bookEntity.setEditorial(editorialEntity);
 		log.info("Termina proceso de actualizar libro con id = {0}", bookId);
 
-		return bookEntity.get();
+		return bookEntity;
 	}
 
 	/**
@@ -81,15 +84,19 @@ public class BookEditorialService {
 	@Transactional
 	public void removeEditorial(Long bookId) throws EntityNotFoundException {
 		log.info("Inicia proceso de borrar la Editorial del libro con id = {0}", bookId);
-		Optional<BookEntity> bookEntity = bookRepository.findById(bookId);
-		if (bookEntity.isEmpty())
+		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
+
+		if (bookOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.BOOK_NOT_FOUND);
 
-		Optional<EditorialEntity> editorialEntity = editorialRepository
-				.findById(bookEntity.get().getEditorial().getId());
-		editorialEntity.ifPresent(editorial -> editorial.getBooks().remove(bookEntity.get()));
+		BookEntity bookEntity = bookOptional.get();
 
-		bookEntity.get().setEditorial(null);
+		Optional<EditorialEntity> editorialOptional = editorialRepository
+				.findById(bookEntity.getEditorial().getId());
+
+		editorialOptional.ifPresent(editorial -> editorial.getBooks().remove(bookEntity));
+
+		bookEntity.setEditorial(null);
 		log.info("Termina proceso de borrar la Editorial del libro con id = {0}", bookId);
 	}
 }

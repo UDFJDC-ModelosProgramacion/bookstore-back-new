@@ -65,8 +65,8 @@ public class BookService {
 		if (bookEntity.getEditorial() == null)
 			throw new IllegalOperationException("Editorial is not valid");
 
-		Optional<EditorialEntity> editorialEntity = editorialRepository.findById(bookEntity.getEditorial().getId());
-		if (editorialEntity.isEmpty())
+		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(bookEntity.getEditorial().getId());
+		if (editorialOptional.isEmpty())
 			throw new IllegalOperationException("Editorial is not valid");
 
 		if (!validateISBN(bookEntity.getIsbn()))
@@ -75,7 +75,9 @@ public class BookService {
 		if (!bookRepository.findByIsbn(bookEntity.getIsbn()).isEmpty())
 			throw new IllegalOperationException("ISBN already exists");
 
-		bookEntity.setEditorial(editorialEntity.get());
+		EditorialEntity editorialEntity = editorialOptional.get();
+
+		bookEntity.setEditorial(editorialEntity);
 		log.info("Termina proceso de creación del libro");
 		return bookRepository.save(bookEntity);
 	}
@@ -101,11 +103,13 @@ public class BookService {
 	@Transactional
 	public BookEntity getBook(Long bookId) throws EntityNotFoundException {
 		log.info("Inicia proceso de consultar el libro con id = {0}", bookId);
-		Optional<BookEntity> bookEntity = bookRepository.findById(bookId);
-		if (bookEntity.isEmpty())
+		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
+		if (bookOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.BOOK_NOT_FOUND);
+
+		BookEntity bookEntity = bookOptional.get();
 		log.info("Termina proceso de consultar el libro con id = {0}", bookId);
-		return bookEntity.get();
+		return bookEntity;
 	}
 
 	/**
@@ -121,8 +125,8 @@ public class BookService {
 	public BookEntity updateBook(Long bookId, BookEntity book)
 			throws EntityNotFoundException, IllegalOperationException {
 		log.info("Inicia proceso de actualizar el libro con id = {0}", bookId);
-		Optional<BookEntity> bookEntity = bookRepository.findById(bookId);
-		if (bookEntity.isEmpty())
+		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
+		if (bookOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.BOOK_NOT_FOUND);
 
 		if (!validateISBN(book.getIsbn()))
@@ -143,11 +147,12 @@ public class BookService {
 	@Transactional
 	public void deleteBook(Long bookId) throws EntityNotFoundException, IllegalOperationException {
 		log.info("Inicia proceso de borrar el libro con id = {0}", bookId);
-		Optional<BookEntity> bookEntity = bookRepository.findById(bookId);
-		if (bookEntity.isEmpty())
+		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
+		if (bookOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.BOOK_NOT_FOUND);
 
-		List<AuthorEntity> authors = bookEntity.get().getAuthors();
+		BookEntity bookEntity = bookOptional.get();
+		List<AuthorEntity> authors = bookEntity.getAuthors();
 
 		if (!authors.isEmpty())
 			throw new IllegalOperationException("Unable to delete book because it has associated authors");

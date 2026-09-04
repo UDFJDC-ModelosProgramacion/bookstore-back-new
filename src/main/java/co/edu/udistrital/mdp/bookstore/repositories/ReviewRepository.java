@@ -31,7 +31,7 @@ import co.edu.udistrital.mdp.bookstore.entities.ReviewEntity;
 /**
  * Interface that persists a review
  *
- * @author ISIS2603
+ * @author Jose Bocanegra
  *
  */
 public interface ReviewRepository extends JpaRepository<ReviewEntity, Long> {
