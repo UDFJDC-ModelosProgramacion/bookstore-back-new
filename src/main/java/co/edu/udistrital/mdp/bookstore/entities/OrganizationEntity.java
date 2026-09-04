@@ -24,7 +24,6 @@ SOFTWARE.
 
 package co.edu.udistrital.mdp.bookstore.entities;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToOne;
