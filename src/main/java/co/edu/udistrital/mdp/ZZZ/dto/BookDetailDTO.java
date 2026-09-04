@@ -21,30 +21,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+package co.edu.udistrital.mdp.ZZZ.dto;
 
-package co.edu.udistrital.mdp.ZZZ.entities;
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Data;
-import uk.co.jemos.podam.common.PodamExclude;
-
-/**
- * Entidad genérica de la que heredan todas las entidades. Contiene la
- * referencia al atributo id
- *
- * @author ISIS2603
- */
 
 @Data
-@MappedSuperclass
-public abstract class BaseEntity {
-
-	@PodamExclude
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class BookDetailDTO extends BookDTO {
+	private List<ReviewDTO> reviews = new ArrayList<>();
+	private List<AuthorDTO> authors = new ArrayList<>();
 }

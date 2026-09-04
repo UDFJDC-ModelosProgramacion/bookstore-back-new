@@ -24,27 +24,28 @@ SOFTWARE.
 
 package co.edu.udistrital.mdp.ZZZ.entities;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 
 import lombok.Data;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- * Entidad genérica de la que heredan todas las entidades. Contiene la
- * referencia al atributo id
+ * Clase que representa una editorial en la persistencia
  *
  * @author ISIS2603
  */
 
 @Data
-@MappedSuperclass
-public abstract class BaseEntity {
+@Entity
+public class EditorialEntity extends BaseEntity {
+
+	private String name;
 
 	@PodamExclude
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@OneToMany(mappedBy = "editorial")
+	private List<BookEntity> books = new ArrayList<>();
 }

@@ -21,30 +21,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+package co.edu.udistrital.mdp.ZZZ.exceptions;
 
-package co.edu.udistrital.mdp.ZZZ.entities;
+public final class ErrorMessage {
+	public static final String BOOK_NOT_FOUND = "The book with the given id was not found";
+	public static final String REVIEW_NOT_FOUND = "The review with the given id was not found";
+	public static final String EDITORIAL_NOT_FOUND = "The editorial with the given id was not found";
+	public static final String PRIZE_NOT_FOUND = "The prize with the given id was not found";
+	public static final String AUTHOR_NOT_FOUND = "The author with the given id was not found";
+	public static final String ORGANIZATION_NOT_FOUND = "The organization with the given id was not found";
+	public static final String REVIEW_NOT_ASSOCIATED_TO_BOOK = "The review is not associated to the book";
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
-
-import lombok.Data;
-import uk.co.jemos.podam.common.PodamExclude;
-
-/**
- * Entidad genérica de la que heredan todas las entidades. Contiene la
- * referencia al atributo id
- *
- * @author ISIS2603
- */
-
-@Data
-@MappedSuperclass
-public abstract class BaseEntity {
-
-	@PodamExclude
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private ErrorMessage() {
+		throw new IllegalStateException("Utility class");
+	}
 }

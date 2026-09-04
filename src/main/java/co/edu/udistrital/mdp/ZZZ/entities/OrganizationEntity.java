@@ -24,27 +24,31 @@ SOFTWARE.
 
 package co.edu.udistrital.mdp.ZZZ.entities;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToOne;
 
 import lombok.Data;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- * Entidad genérica de la que heredan todas las entidades. Contiene la
- * referencia al atributo id
+ * Clase que representa una organizacion en la persistencia
  *
  * @author ISIS2603
  */
 
 @Data
-@MappedSuperclass
-public abstract class BaseEntity {
+@Entity
+public class OrganizationEntity extends BaseEntity {
+
+	enum TIPO_ORGANIZACION {
+		PRIVADA, PUBLICA, FUNDACION
+	}
+
+	private String name;
+	private TIPO_ORGANIZACION tipo;
 
 	@PodamExclude
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@OneToOne(mappedBy = "organization", fetch = FetchType.LAZY)
+	private PrizeEntity prize;
 }

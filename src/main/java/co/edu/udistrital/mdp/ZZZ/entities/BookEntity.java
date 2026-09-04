@@ -24,27 +24,46 @@ SOFTWARE.
 
 package co.edu.udistrital.mdp.ZZZ.entities;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 import lombok.Data;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- * Entidad genérica de la que heredan todas las entidades. Contiene la
- * referencia al atributo id
+ * Clase que representa un libro en la persistencia
  *
  * @author ISIS2603
  */
 
 @Data
-@MappedSuperclass
-public abstract class BaseEntity {
+@Entity
+public class BookEntity extends BaseEntity {
+
+	private String name;
+	private String isbn;
+	private String image;
+
+	private Date publishingDate;
+
+	private String description;
 
 	@PodamExclude
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@ManyToOne
+	private EditorialEntity editorial;
+
+	@PodamExclude
+	@OneToMany(mappedBy = "book", cascade = CascadeType.PERSIST, orphanRemoval = true)
+	private List<ReviewEntity> reviews = new ArrayList<>();
+
+	@PodamExclude
+	@ManyToMany
+	private List<AuthorEntity> authors = new ArrayList<>();
 }

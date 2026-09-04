@@ -22,29 +22,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package co.edu.udistrital.mdp.ZZZ.entities;
+package co.edu.udistrital.mdp.ZZZ.repositories;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import lombok.Data;
-import uk.co.jemos.podam.common.PodamExclude;
+import co.edu.udistrital.mdp.ZZZ.entities.ReviewEntity;
 
 /**
- * Entidad genérica de la que heredan todas las entidades. Contiene la
- * referencia al atributo id
+ * Interface that persists a review
  *
  * @author ISIS2603
+ *
  */
-
-@Data
-@MappedSuperclass
-public abstract class BaseEntity {
-
-	@PodamExclude
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public interface ReviewRepository extends JpaRepository<ReviewEntity, Long> {
+	ReviewEntity findByBookIdAndId(Long bookId, Long id);
 }

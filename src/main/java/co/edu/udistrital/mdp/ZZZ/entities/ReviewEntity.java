@@ -24,27 +24,27 @@ SOFTWARE.
 
 package co.edu.udistrital.mdp.ZZZ.entities;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 
 import lombok.Data;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- * Entidad genérica de la que heredan todas las entidades. Contiene la
- * referencia al atributo id
+ * Clase que representa una reseña en la persistencia
  *
  * @author ISIS2603
  */
 
 @Data
-@MappedSuperclass
-public abstract class BaseEntity {
+@Entity
+public class ReviewEntity extends BaseEntity {
+
+	private String name;
+	private String source;
+	private String description;
 
 	@PodamExclude
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@ManyToOne
+	private BookEntity book;
 }

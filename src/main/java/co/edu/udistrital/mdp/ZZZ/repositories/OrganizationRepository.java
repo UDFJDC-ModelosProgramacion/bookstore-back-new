@@ -22,29 +22,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package co.edu.udistrital.mdp.ZZZ.entities;
+package co.edu.udistrital.mdp.ZZZ.repositories;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import java.util.List;
 
-import lombok.Data;
-import uk.co.jemos.podam.common.PodamExclude;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import co.edu.udistrital.mdp.ZZZ.entities.OrganizationEntity;
 
 /**
- * Entidad genérica de la que heredan todas las entidades. Contiene la
- * referencia al atributo id
+ * Interface that persists an organization
  *
  * @author ISIS2603
+ *
  */
 
-@Data
-@MappedSuperclass
-public abstract class BaseEntity {
-
-	@PodamExclude
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public interface OrganizationRepository extends JpaRepository<OrganizationEntity, Long> {
+	List<OrganizationEntity> findByName(String name);
 }
