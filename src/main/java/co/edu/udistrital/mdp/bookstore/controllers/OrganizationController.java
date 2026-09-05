@@ -39,7 +39,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.udistrital.mdp.bookstore.dto.OrganizationDTO;
-import co.edu.udistrital.mdp.bookstore.dto.OrganizationDetailDTO;
 import co.edu.udistrital.mdp.bookstore.entities.OrganizationEntity;
 import co.edu.udistrital.mdp.bookstore.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.bookstore.exceptions.IllegalOperationException;
