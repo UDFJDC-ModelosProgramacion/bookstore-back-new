@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,7 @@ import co.edu.udistrital.mdp.bookstore.services.EditorialService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Clase que implementa el recurso "editorials".
+ * Class implementing the "editorials" resource.
  *
  * @author Jose Bocanegra
  */
@@ -61,11 +61,12 @@ public class EditorialController {
 	private final ModelMapper modelMapper;
 
 	/**
-	 * Busca la editorial con el id asociado recibido en la URL y la devuelve.
+	 * Searches for the editorial with the associated ID received in the URL and
+	 * returns it.
 	 *
-	 * @param editorialId Identificador de la editorial que se esta buscando.
-	 *                    Este debe ser una cadena de dígitos.
-	 * @return JSON {@link EditorialDetailDTO} - La editorial buscada
+	 * @param id Identifier of the editorial being searched.
+	 *           This must be a string of digits.
+	 * @return JSON {@link EditorialDetailDTO} - The requested editorial
 	 */
 	@GetMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -75,11 +76,10 @@ public class EditorialController {
 	}
 
 	/**
-	 * Busca y devuelve todas las editoriales que existen en la aplicacion.
+	 * Searches for and returns all editorials existing in the application.
 	 *
-	 * @return JSONArray {@link EditorialDetailDTO} - Las editoriales
-	 *         encontradas en la aplicación. Si no hay ninguna retorna una lista
-	 *         vacía.
+	 * @return JSONArray {@link EditorialDetailDTO} - The editorials
+	 *         found in the application. If none exist, returns an empty list.
 	 */
 	@GetMapping
 	@ResponseStatus(code = HttpStatus.OK)
@@ -90,14 +90,13 @@ public class EditorialController {
 	}
 
 	/**
-	 * Crea una nueva editorial con la informacion que se recibe en el cuerpo de
-	 * la petición y se regresa un objeto identico con un id auto-generado por
-	 * la base de datos.
+	 * Creates a new editorial with the information received in the request body
+	 * and returns an identical object with an auto-generated ID from the database.
 	 *
-	 * @param editorial {@link EditorialDTO} - La editorial que se desea
-	 *                  guardar.
-	 * @return JSON {@link EditorialDTO} - La editorial guardada con el atributo
-	 *         id autogenerado.
+	 * @param editorialDTO {@link EditorialDTO} - The editorial to be saved.
+	 * @return JSON {@link EditorialDTO} - The saved editorial with the
+	 *         auto-generated
+	 *         ID attribute.
 	 */
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -108,14 +107,13 @@ public class EditorialController {
 	}
 
 	/**
-	 * Actualiza la editorial con el id recibido en la URL con la informacion
-	 * que se recibe en el cuerpo de la petición.
+	 * Updates the editorial with the ID received in the URL using the information
+	 * received in the request body.
 	 *
-	 * @param editorialId Identificador de la editorial que se desea
-	 *                    actualizar. Este debe ser una cadena de dígitos.
-	 * @param editorial   {@link EditorialDTO} La editorial que se desea
-	 *                    guardar.
-	 * @return JSON {@link EditorialDTO} - La editorial guardada.
+	 * @param id           Identifier of the editorial to update.
+	 *                     This must be a string of digits.
+	 * @param editorialDTO {@link EditorialDTO} The editorial to be saved.
+	 * @return JSON {@link EditorialDTO} - The saved editorial.
 	 */
 
 	@PutMapping(value = "/{id}")
@@ -128,10 +126,10 @@ public class EditorialController {
 	}
 
 	/**
-	 * Borra la editorial con el id asociado recibido en la URL.
+	 * Deletes the editorial with the associated ID received in the URL.
 	 *
-	 * @param id Identificador de la editorial que se desea borrar.
-	 *           Este debe ser una cadena de dígitos.
+	 * @param id Identifier of the editorial to delete.
+	 *           This must be a string of digits.
 	 */
 	@DeleteMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)

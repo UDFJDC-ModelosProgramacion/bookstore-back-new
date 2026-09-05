@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,7 @@ import co.edu.udistrital.mdp.bookstore.services.OrganizationService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Clase que implementa el recurso "organizations".
+ * Class implementing the "organizations" resource.
  *
  * @author Jose Bocanegra
  */
@@ -61,10 +61,10 @@ public class OrganizationController {
 	private final ModelMapper modelMapper;
 
 	/**
-	 * Busca y devuelve todos las organizaciones que existen en la aplicacion.
+	 * Searches for and returns all organizations existing in the application.
 	 *
-	 * @return JSONArray {@link OrganizationDTO} - Las organizaciones encontradas en
-	 *         la aplicación. Si no hay ninguna retorna una lista vacía.
+	 * @return JSONArray {@link OrganizationDTO} - The organizations found in the
+	 *         application. If none exist, returns an empty list.
 	 */
 	@GetMapping
 	@ResponseStatus(code = HttpStatus.OK)
@@ -75,11 +75,12 @@ public class OrganizationController {
 	}
 
 	/**
-	 * Busca la organization con el id asociado recibido en la URL y lo devuelve.
+	 * Searches for the organization with the associated ID received in the URL and
+	 * returns it.
 	 *
-	 * @param organizationId Identificador de la organization que se esta buscando.
-	 *                       Este debe ser una cadena de dígitos.
-	 * @return JSON {@link OrganizationDetailDTO} - La organization buscada
+	 * @param id Identifier of the organization being searched. This must be a
+	 *           string of digits.
+	 * @return JSON {@link OrganizationDTO} - The requested organization
 	 */
 	@GetMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -89,14 +90,14 @@ public class OrganizationController {
 	}
 
 	/**
-	 * Crea una nueva organization con la informacion que se recibe en el cuerpo de
-	 * la petición y se regresa un objeto identico con un id auto-generado por la
-	 * base de datos.
+	 * Creates a new organization with the information received in the request body
+	 * and returns an identical object with an auto-generated ID from the database.
 	 *
-	 * @param organizationDTO {@link OrganizationDTO} - La organization que se desea
-	 *                        guardar.
-	 * @return JSON {@link OrganizationDTO} - La organization guardada con el
-	 *         atributo id autogenerado.
+	 * @param organizationDTO {@link OrganizationDTO} - The organization to be
+	 *                        saved.
+	 * @return JSON {@link OrganizationDTO} - The saved organization with the
+	 *         auto-generated
+	 *         ID attribute.
 	 */
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -107,14 +108,14 @@ public class OrganizationController {
 	}
 
 	/**
-	 * Actualiza la organization con el id recibido en la URL con la información que
-	 * se recibe en el cuerpo de la petición.
+	 * Updates the organization with the ID received in the URL using the
+	 * information
+	 * received in the request body.
 	 *
-	 * @param id           Identificador de la organization que se desea actualizar.
-	 *                     Este debe ser una cadena de dígitos.
-	 * @param organization {@link OrganizationDTO} La organization que se desea
-	 *                     guardar.
-	 * @return JSON {@link OrganizationDTO} - La organization guardada.
+	 * @param id              Identifier of the organization to update. This must
+	 *                        be a string of digits.
+	 * @param organizationDTO {@link OrganizationDTO} The organization to be saved.
+	 * @return JSON {@link OrganizationDTO} - The saved organization.
 	 */
 	@PutMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -126,10 +127,10 @@ public class OrganizationController {
 	}
 
 	/**
-	 * Borra la organization con el id asociado recibido en la URL.
+	 * Deletes the organization with the associated ID received in the URL.
 	 *
-	 * @param id Identificador de la organization que se desea borrar. Este debe ser
-	 *           una cadena de dígitos.
+	 * @param id Identifier of the organization to delete. This must be a
+	 *           string of digits.
 	 */
 	@DeleteMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)

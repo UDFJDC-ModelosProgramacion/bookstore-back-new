@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,7 @@ import co.edu.udistrital.mdp.bookstore.services.ReviewService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Clase que implementa el recurso "reviews".
+ * Class implementing the "reviews" resource.
  *
  * @author Jose Bocanegra
  * @version 1.0
@@ -61,30 +61,29 @@ public class ReviewController {
 	private final ModelMapper modelMapper;
 
 	/**
-	 * Crea una nueva reseña con la informacion que se recibe en el cuerpo de la
-	 * petición y se regresa un objeto identico con un id auto-generado por la base
-	 * de datos.
+	 * Creates a new review with the information received in the request body
+	 * and returns an identical object with an auto-generated ID from the database.
 	 *
-	 * @param bookId El ID del libro del cual se le agrega la reseña
-	 * @param review {@link ReviewDTO} - La reseña que se desea guardar.
-	 * @return JSON {@link ReviewDTO} - La reseña guardada con el atributo id
-	 *         autogenerado.
+	 * @param bookId    The ID of the book to which the review is added.
+	 * @param reviewDTO {@link ReviewDTO} - The review to be saved.
+	 * @return JSON {@link ReviewDTO} - The saved review with the auto-generated ID.
 	 */
 	@PostMapping(value = "/{bookId}/reviews")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ReviewDTO createReview(@PathVariable Long bookId, @RequestBody ReviewDTO review)
+	public ReviewDTO createReview(@PathVariable Long bookId, @RequestBody ReviewDTO reviewDTO)
 			throws EntityNotFoundException {
-		ReviewEntity reviewEnity = modelMapper.map(review, ReviewEntity.class);
-		ReviewEntity newReview = reviewService.createReview(bookId, reviewEnity);
+		ReviewEntity reviewEntity = modelMapper.map(reviewDTO, ReviewEntity.class);
+		ReviewEntity newReview = reviewService.createReview(bookId, reviewEntity);
 		return modelMapper.map(newReview, ReviewDTO.class);
 	}
 
 	/**
-	 * Busca y devuelve todas las reseñas que existen en un libro.
+	 * Searches for and returns all reviews associated with a book.
 	 *
-	 * @param bookId El ID del libro del cual se buscan las reseñas
-	 * @return JSONArray {@link ReviewDTO} - Las reseñas encontradas en el libro. Si
-	 *         no hay ninguna retorna una lista vacía.
+	 * @param bookId The ID of the book for which reviews are searched.
+	 * @return JSONArray {@link ReviewDTO} - The reviews found for the book. If none
+	 *         exist,
+	 *         returns an empty list.
 	 */
 	@GetMapping(value = "/{bookId}/reviews")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -95,11 +94,12 @@ public class ReviewController {
 	}
 
 	/**
-	 * Busca y devuelve la reseña con el ID recibido en la URL, relativa a un libro.
+	 * Searches for and returns the review with the ID received in the URL, relative
+	 * to a book.
 	 *
-	 * @param bookId   El ID del libro del cual se buscan las reseñas
-	 * @param reviewId El ID de la reseña que se busca
-	 * @return {@link ReviewDTO} - La reseña encontradas en el libro.
+	 * @param bookId   The ID of the book for which the review is searched.
+	 * @param reviewId The ID of the review being searched.
+	 * @return JSON {@link ReviewDTO} - The review found for the book.
 	 */
 	@GetMapping(value = "/{bookId}/reviews/{reviewId}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -110,30 +110,28 @@ public class ReviewController {
 	}
 
 	/**
-	 * Actualiza una reseña con la informacion que se recibe en el cuerpo de la
-	 * petición y se regresa el objeto actualizado.
+	 * Updates a review with the information received in the request body
+	 * and returns the updated object.
 	 *
-	 * @param bookId   El ID del libro del cual se guarda la reseña
-	 * @param reviewId El ID de la reseña que se va a actualizar
-	 * @param review   {@link ReviewDTO} - La reseña que se desea guardar.
-	 * @return JSON {@link ReviewDTO} - La reseña actualizada.
+	 * @param bookId    The ID of the book for which the review is saved.
+	 * @param reviewId  The ID of the review to be updated.
+	 * @param reviewDTO {@link ReviewDTO} - The review to be saved.
+	 * @return JSON {@link ReviewDTO} - The updated review.
 	 */
 	@PutMapping(value = "/{bookId}/reviews/{reviewsId}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public ReviewDTO updateReview(@PathVariable Long bookId, @PathVariable("reviewsId") Long reviewId,
-			@RequestBody ReviewDTO review) throws EntityNotFoundException {
-		ReviewEntity reviewEntity = modelMapper.map(review, ReviewEntity.class);
+			@RequestBody ReviewDTO reviewDTO) throws EntityNotFoundException {
+		ReviewEntity reviewEntity = modelMapper.map(reviewDTO, ReviewEntity.class);
 		ReviewEntity newEntity = reviewService.updateReview(bookId, reviewId, reviewEntity);
 		return modelMapper.map(newEntity, ReviewDTO.class);
 	}
 
 	/**
-	 * Borra la reseña con el id asociado recibido en la URL.
+	 * Deletes the review with the associated ID received in the URL.
 	 *
-	 * @param bookId   El ID del libro del cual se va a eliminar la reseña.
-	 * @param reviewId El ID de la reseña que se va a eliminar.
-	 * @throws IllegalOperationException
-	 * @throws BusinessLogicException    {@link BusinessLogicExceptionMapper} -
+	 * @param bookId   The ID of the book from which the review will be removed.
+	 * @param reviewId The ID of the review to be removed.
 	 */
 	@DeleteMapping(value = "/{bookId}/reviews/{reviewId}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)

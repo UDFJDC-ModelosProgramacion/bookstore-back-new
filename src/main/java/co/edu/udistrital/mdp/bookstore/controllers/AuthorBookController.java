@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,7 @@ import co.edu.udistrital.mdp.bookstore.services.AuthorBookService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Clase que implementa el recurso "authors/{id}/books".
+ * Class implementing the "authors/{id}/books" resource.
  *
  * @author Jose Bocanegra
  */
@@ -61,11 +61,12 @@ public class AuthorBookController {
 	private final ModelMapper modelMapper;
 
 	/**
-	 * Busca y devuelve el libro con el ID recibido en la URL, relativo a un autor.
+	 * Searches for and returns the book with the ID received in the URL, relative
+	 * to an author.
 	 *
-	 * @param authorId El ID del autor del cual se busca el libro
-	 * @param bookId   El ID del libro que se busca
-	 * @return {@link BookDetailDTO} - El libro encontrado en el autor.
+	 * @param authorId The ID of the author whose book is being searched
+	 * @param bookId   The ID of the book being searched
+	 * @return {@link BookDetailDTO} - The book found for the author.
 	 */
 	@GetMapping(value = "/{authorId}/books/{bookId}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -76,11 +77,11 @@ public class AuthorBookController {
 	}
 
 	/**
-	 * Busca y devuelve todos los libros que existen en un autor.
+	 * Searches for and returns all books belonging to an author.
 	 *
-	 * @param authorsId El ID del autor del cual se buscan los libros
-	 * @return JSONArray {@link BookDetailDTO} - Los libros encontrados en el autor.
-	 *         Si no hay ninguno retorna una lista vacía.
+	 * @param authorId The ID of the author whose books are being searched
+	 * @return JSONArray {@link BookDetailDTO} - The books found for the author.
+	 *         If none are found, returns an empty list.
 	 */
 	@GetMapping(value = "/{authorId}/books")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -91,11 +92,11 @@ public class AuthorBookController {
 	}
 
 	/**
-	 * Asocia un libro existente con un autor existente
+	 * Associates an existing book with an existing author
 	 *
-	 * @param authorId El ID del autor al cual se le va a asociar el libro
-	 * @param bookId   El ID del libro que se asocia
-	 * @return JSON {@link BookDetailDTO} - El libro asociado.
+	 * @param authorId The ID of the author to associate with the book
+	 * @param bookId   The ID of the book being associated
+	 * @return JSON {@link BookDetailDTO} - The associated book.
 	 */
 	@PostMapping(value = "/{authorId}/books/{bookId}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -106,13 +107,11 @@ public class AuthorBookController {
 	}
 
 	/**
-	 * Actualiza la lista de libros de un autor con la lista que se recibe en el
-	 * cuerpo
+	 * Updates an author's list of books with the list received in the request body
 	 *
-	 * @param authorId El ID del autor al cual se le va a asociar el libro
-	 * @param books    JSONArray {@link BookDTO} - La lista de libros que se desea
-	 *                 guardar.
-	 * @return JSONArray {@link BookDetailDTO} - La lista actualizada.
+	 * @param authorId The ID of the author to associate with the books
+	 * @param books    JSONArray {@link BookDTO} - The list of books to save.
+	 * @return JSONArray {@link BookDetailDTO} - The updated list.
 	 */
 	@PutMapping(value = "/{authorId}/books")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -127,10 +126,10 @@ public class AuthorBookController {
 	}
 
 	/**
-	 * Elimina la conexión entre el libro y e autor recibidos en la URL.
+	 * Removes the association between the book and author received in the URL.
 	 *
-	 * @param authorId El ID del autor al cual se le va a desasociar el libro
-	 * @param bookId   El ID del libro que se desasocia
+	 * @param authorId The ID of the author to disassociate from the book
+	 * @param bookId   The ID of the book being disassociated
 	 */
 	@DeleteMapping(value = "/{authorId}/books/{bookId}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)

@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,7 @@ import co.edu.udistrital.mdp.bookstore.services.PrizeService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Clase que implementa el recurso "prizes".
+ * Class implementing the "prizes" resource.
  *
  * @author Jose Bocanegra
  */
@@ -61,10 +61,10 @@ public class PrizeController {
 	private final ModelMapper modelMapper;
 
 	/**
-	 * Busca y devuelve todos los premios que existen en la aplicacion.
+	 * Searches for and returns all prizes existing in the application.
 	 *
-	 * @return JSONArray {@link PrizeDetailDTO} - Los premios encontrados en la
-	 *         aplicación. Si no hay ninguno retorna una lista vacía.
+	 * @return JSONArray {@link PrizeDetailDTO} - The prizes found in the
+	 *         application. If none exist, returns an empty list.
 	 */
 	@GetMapping
 	@ResponseStatus(code = HttpStatus.OK)
@@ -75,14 +75,12 @@ public class PrizeController {
 	}
 
 	/**
-	 * Busca el premio con el id asociado recibido en la URL y lo devuelve.
+	 * Searches for the prize with the associated ID received in the URL and returns
+	 * it.
 	 *
-	 * @param id Identificador del premio que se esta buscando. Este debe ser una
-	 *           cadena de dígitos.
-	 * @return JSON {@link PrizeDetailDTO} - El premio buscado
-	 * @throws WebApplicationException {@link WebApplicationExceptionMapper} - Error
-	 *                                 de lógica que se genera cuando no se
-	 *                                 encuentra el premio.
+	 * @param id Identifier of the prize being searched. This must be a
+	 *           string of digits.
+	 * @return JSON {@link PrizeDetailDTO} - The requested prize
 	 */
 	@GetMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -92,13 +90,12 @@ public class PrizeController {
 	}
 
 	/**
-	 * Crea un nuevo premio con la informacion que se recibe en el cuerpo de la
-	 * petición y se regresa un objeto identico con un id auto-generado por la base
-	 * de datos.
+	 * Creates a new prize with the information received in the request body
+	 * and returns an identical object with an auto-generated ID from the database.
 	 *
-	 * @param prize {@link PrizeDTO} - EL premio que se desea guardar.
-	 * @return JSON {@link PrizeDTO} - El premio guardado con el atributo id
-	 *         autogenerado.
+	 * @param prizeDTO {@link PrizeDTO} - The prize to be saved.
+	 * @return JSON {@link PrizeDTO} - The saved prize with the auto-generated
+	 *         ID attribute.
 	 */
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -108,13 +105,13 @@ public class PrizeController {
 	}
 
 	/**
-	 * Actualiza el premio con el id recibido en la URL con la información que se
-	 * recibe en el cuerpo de la petición.
+	 * Updates the prize with the ID received in the URL using the information
+	 * received in the request body.
 	 *
-	 * @param id    Identificador del premio que se desea actualizar. Este debe ser
-	 *              una cadena de dígitos.
-	 * @param prize {@link PrizeDTO} El premio que se desea guardar.
-	 * @return JSON {@link PrizeDetailDTO} - El premio guardada.
+	 * @param id       Identifier of the prize to update. This must be
+	 *                 a string of digits.
+	 * @param prizeDTO {@link PrizeDTO} The prize to be saved.
+	 * @return JSON {@link PrizeDetailDTO} - The saved prize.
 	 */
 	@PutMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -125,10 +122,10 @@ public class PrizeController {
 	}
 
 	/**
-	 * Borra el premio con el id asociado recibido en la URL.
+	 * Deletes the prize with the associated ID received in the URL.
 	 *
-	 * @param id Identificador del premio que se desea borrar. Este debe ser una
-	 *           cadena de dígitos.
+	 * @param id Identifier of the prize to delete. This must be a
+	 *           string of digits.
 	 */
 	@DeleteMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)

@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,7 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * Pruebas de logica de Prizes
+ * Logic tests for Prizes
  *
  * @author Jose Bocanegra
  */
@@ -70,7 +70,7 @@ class PrizeServiceTest {
 	private List<PrizeEntity> prizeList = new ArrayList<PrizeEntity>();
 
 	/**
-	 * Configuración inicial de la prueba.
+	 * Initial setup for the test.
 	 */
 	@BeforeEach
 	void setUp() {
@@ -79,14 +79,14 @@ class PrizeServiceTest {
 	}
 
 	/**
-	 * Limpia las tablas que están implicadas en la prueba.
+	 * Clears the tables involved in the test.
 	 */
 	private void clearData() {
 		entityManager.getEntityManager().createQuery("delete from PrizeEntity").executeUpdate();
 	}
 
 	/**
-	 * Inserta los datos iniciales para el correcto funcionamiento de las pruebas.
+	 * Inserts initial data required for tests to run properly.
 	 */
 	private void insertData() {
 		for (int i = 0; i < 3; i++) {
@@ -102,9 +102,8 @@ class PrizeServiceTest {
 	}
 
 	/**
-	 * Prueba para crear un Prize.
+	 * Test to create a Prize.
 	 *
-	 * @throws EntityNotFoundException
 	 * @throws IllegalOperationException
 	 */
 	@Test
@@ -124,9 +123,7 @@ class PrizeServiceTest {
 	}
 
 	/**
-	 * Prueba para crear un Prize con una organización no válida
-	 *
-	 * @throws IllegalOperationException
+	 * Test to create a Prize with an invalid organization.
 	 */
 	@Test
 	void testCreatePrizeWithNoValidOrganization() {
@@ -138,9 +135,7 @@ class PrizeServiceTest {
 	}
 
 	/**
-	 * Prueba para crear un Prize con una organización no válida
-	 *
-	 * @throws IllegalOperationException
+	 * Test to create a Prize with an invalid organization.
 	 */
 	@Test
 	void testCreatePrizeWithNoValidOrganization2() {
@@ -154,9 +149,7 @@ class PrizeServiceTest {
 	}
 
 	/**
-	 * Prueba para crear un Prize con una organización no válida
-	 *
-	 * @throws IllegalOperationException
+	 * Test to create a Prize with an invalid organization.
 	 */
 	@Test
 	void testCreatePrizeWithNoValidOrganization3() {
@@ -168,7 +161,7 @@ class PrizeServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar la lista de Prizes.
+	 * Test to retrieve the list of Prizes.
 	 */
 	@Test
 	void testGetPrizes() {
@@ -186,7 +179,9 @@ class PrizeServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un Prize.
+	 * Test to retrieve a Prize.
+	 *
+	 * @throws EntityNotFoundException
 	 */
 	@Test
 	void testGetPrize() throws EntityNotFoundException {
@@ -200,7 +195,7 @@ class PrizeServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un Prize que no existe.
+	 * Test to retrieve a non-existent Prize.
 	 */
 	@Test
 	void testGetInvalidPrize() {
@@ -210,7 +205,9 @@ class PrizeServiceTest {
 	}
 
 	/**
-	 * Prueba para actualizar un Prize.
+	 * Test to update a Prize.
+	 *
+	 * @throws EntityNotFoundException
 	 */
 	@Test
 	void testUpdatePrize() throws EntityNotFoundException {
@@ -230,7 +227,7 @@ class PrizeServiceTest {
 	}
 
 	/**
-	 * Prueba para actualizar un Prize que no existe.
+	 * Test to update a non-existent Prize.
 	 */
 	@Test
 	void testUpdateInvalidPrize() {
@@ -242,10 +239,9 @@ class PrizeServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar un Prize.
+	 * Test to delete a Prize.
 	 * 
 	 * @throws EntityNotFoundException
-	 *
 	 * @throws IllegalOperationException
 	 */
 	@Test
@@ -256,9 +252,7 @@ class PrizeServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar un Prize con un autor.
-	 *
-	 * @throws IllegalOperationException
+	 * Test to delete a Prize with an associated author.
 	 */
 	@Test
 	void testDeletePrizeWithAuthor() {
@@ -275,9 +269,7 @@ class PrizeServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar un Prize que no existe.
-	 *
-	 * @throws EntityNotFoundException
+	 * Test to delete a non-existent Prize.
 	 */
 	@Test
 	void testDeleteInvalidPrize() {

@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,7 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * Pruebas de logica de Organizations
+ * Logic tests for Organizations
  * 
  * @author Jose Bocanegra
  */
@@ -66,7 +66,7 @@ class OrganizationServiceTest {
 	private List<OrganizationEntity> organizationList = new ArrayList<>();
 
 	/**
-	 * Configuración inicial de la prueba.
+	 * Initial setup for the test.
 	 */
 	@BeforeEach
 	void setUp() {
@@ -75,7 +75,7 @@ class OrganizationServiceTest {
 	}
 
 	/**
-	 * Limpia las tablas que están implicadas en la prueba.
+	 * Clears the tables involved in the test.
 	 */
 	private void clearData() {
 		entityManager.getEntityManager().createQuery("delete from PrizeEntity").executeUpdate();
@@ -83,7 +83,7 @@ class OrganizationServiceTest {
 	}
 
 	/**
-	 * Inserta los datos iniciales para el correcto funcionamiento de las pruebas.
+	 * Inserts initial data required for tests to run properly.
 	 */
 	private void insertData() {
 		for (int i = 0; i < 3; i++) {
@@ -98,7 +98,7 @@ class OrganizationServiceTest {
 	}
 
 	/**
-	 * Prueba para crear una Organization.
+	 * Test to create an Organization.
 	 */
 	@Test
 	void testCreateOrganization() throws IllegalOperationException {
@@ -113,7 +113,7 @@ class OrganizationServiceTest {
 	}
 
 	/**
-	 * Prueba para crear una Organization con nombre repetido.
+	 * Test to create an Organization with a duplicate name.
 	 */
 	@Test
 	void testCreateOrganizationWithSameName() {
@@ -125,7 +125,7 @@ class OrganizationServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar la lista de Organizations.
+	 * Test to retrieve the list of Organizations.
 	 */
 	@Test
 	void testGetOrganizations() {
@@ -144,7 +144,7 @@ class OrganizationServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar una Organization.
+	 * Test to retrieve an Organization.
 	 */
 	@Test
 	void testGetOrganization() throws EntityNotFoundException {
@@ -157,7 +157,7 @@ class OrganizationServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar una Organization que no existe.
+	 * Test to retrieve a non-existent Organization.
 	 */
 	@Test
 	void testGetInvalidOrganization() {
@@ -167,7 +167,7 @@ class OrganizationServiceTest {
 	}
 
 	/**
-	 * Prueba para actualizar un Organization.
+	 * Test to update an Organization.
 	 */
 	@Test
 	void testUpdateOrganization() throws EntityNotFoundException {
@@ -184,7 +184,7 @@ class OrganizationServiceTest {
 	}
 
 	/**
-	 * Prueba para actualizar una organización que no existe.
+	 * Test to update a non-existent Organization.
 	 */
 	@Test
 	void testUpdateOrganizationInvalid() {
@@ -196,7 +196,7 @@ class OrganizationServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar una organización.
+	 * Test to delete an Organization.
 	 */
 	@Test
 	void testDeleteOrganization() throws EntityNotFoundException, IllegalOperationException {
@@ -207,7 +207,7 @@ class OrganizationServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar una organización que no existe.
+	 * Test to delete a non-existent Organization.
 	 */
 	@Test
 	void testDeleteInvalidOrganization() {
@@ -217,7 +217,7 @@ class OrganizationServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar un Organization con un premio.
+	 * Test to delete an Organization with an associated prize.
 	 */
 	@Test
 	void testDeleteOrganizationWithPrize() {

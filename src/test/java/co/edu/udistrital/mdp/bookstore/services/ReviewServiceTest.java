@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -45,7 +45,7 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * Pruebas de logica de Reviews
+ * Logic tests for Reviews
  *
  * @author Jose Bocanegra
  */
@@ -66,7 +66,7 @@ class ReviewServiceTest {
 	private BookEntity bookEntity;
 
 	/**
-	 * Configuración inicial de la prueba.
+	 * Initial setup for the test.
 	 */
 	@BeforeEach
 	void setUp() {
@@ -75,7 +75,7 @@ class ReviewServiceTest {
 	}
 
 	/**
-	 * Limpia las tablas que están implicadas en la prueba.
+	 * Clears the tables involved in the test.
 	 */
 	private void clearData() {
 		entityManager.getEntityManager().createQuery("delete from ReviewEntity").executeUpdate();
@@ -83,7 +83,7 @@ class ReviewServiceTest {
 	}
 
 	/**
-	 * Inserta los datos iniciales para el correcto funcionamiento de las pruebas.
+	 * Inserts initial data required for tests to run properly.
 	 */
 	private void insertData() {
 
@@ -101,7 +101,7 @@ class ReviewServiceTest {
 	}
 
 	/**
-	 * Prueba para crear un Review.
+	 * Test to create a Review.
 	 */
 	@Test
 	void testCreateReview() throws EntityNotFoundException {
@@ -117,7 +117,7 @@ class ReviewServiceTest {
 	}
 
 	/**
-	 * Prueba para crear un Review con un libro que no existe.
+	 * Test to create a Review with a non-existent book.
 	 */
 	@Test
 	void testCreateReviewInvalidBook() {
@@ -128,7 +128,7 @@ class ReviewServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar la lista de Reviews.
+	 * Test to retrieve the list of Reviews.
 	 */
 	@Test
 	void testGetReviews() throws EntityNotFoundException {
@@ -146,7 +146,7 @@ class ReviewServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar la lista de Reviews de un libro que no existe.
+	 * Test to retrieve the list of Reviews for a non-existent book.
 	 */
 	@Test
 	void testGetReviewsInvalidBook() {
@@ -156,7 +156,7 @@ class ReviewServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un Review.
+	 * Test to retrieve a Review.
 	 */
 	@Test
 	void testGetReview() throws EntityNotFoundException {
@@ -170,7 +170,7 @@ class ReviewServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un Review de un libro que no existe.
+	 * Test to retrieve a Review for a non-existent book.
 	 */
 	@Test
 	void testGetReviewInvalidBook() {
@@ -181,7 +181,7 @@ class ReviewServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un Review que no existe de un libro.
+	 * Test to retrieve a non-existent Review for a book.
 	 */
 	@Test
 	void testGetInvalidReview() {
@@ -191,7 +191,7 @@ class ReviewServiceTest {
 	}
 
 	/**
-	 * Prueba para actualizar un Review.
+	 * Test to update a Review.
 	 */
 	@Test
 	void testUpdateReview() throws EntityNotFoundException {
@@ -211,7 +211,7 @@ class ReviewServiceTest {
 	}
 
 	/**
-	 * Prueba para actualizar un Review de un libro que no existe.
+	 * Test to update a Review for a non-existent book.
 	 */
 	@Test
 	void testUpdateReviewInvalidBook() {
@@ -225,7 +225,7 @@ class ReviewServiceTest {
 	}
 
 	/**
-	 * Prueba para actualizar un Review que no existe de un libro.
+	 * Test to update a non-existent Review for a book.
 	 */
 	@Test
 	void testUpdateInvalidReview() {
@@ -236,7 +236,7 @@ class ReviewServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar un Review.
+	 * Test to delete a Review.
 	 * 
 	 * @throws IllegalOperationException
 	 */
@@ -249,7 +249,7 @@ class ReviewServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar un Review de un libro que no existe.
+	 * Test to delete a Review for a non-existent book.
 	 */
 	@Test
 	void testDeleteReviewInvalidBook() {
@@ -260,7 +260,7 @@ class ReviewServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar un Review que no existe de un libro.
+	 * Test to delete a non-existent Review for a book.
 	 */
 	@Test
 	void testDeleteInvalidReview() {
@@ -270,7 +270,7 @@ class ReviewServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminarle un review a un book del cual no pertenece.
+	 * Test to delete a review from a book to which it does not belong.
 	 */
 	@Test
 	void testDeleteReviewWithNoAssociatedBook() {

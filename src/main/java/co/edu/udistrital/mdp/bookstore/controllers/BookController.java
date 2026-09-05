@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,7 @@ import co.edu.udistrital.mdp.bookstore.services.BookService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Clase que implementa el recurso "books".
+ * Class implementing the "books" resource.
  *
  * @author Jose Bocanegra
  */
@@ -61,10 +61,10 @@ public class BookController {
 	private final ModelMapper modelMapper;
 
 	/**
-	 * Busca y devuelve todos los libros que existen en la aplicacion.
+	 * Searches for and returns all books existing in the application.
 	 *
-	 * @return JSONArray {@link BookDetailDTO} - Los libros encontrados en la
-	 *         aplicación. Si no hay ninguno retorna una lista vacía.
+	 * @return JSONArray {@link BookDetailDTO} - The books found in the
+	 *         application. If none exist, returns an empty list.
 	 */
 	@GetMapping
 	@ResponseStatus(code = HttpStatus.OK)
@@ -75,11 +75,12 @@ public class BookController {
 	}
 
 	/**
-	 * Busca el libro con el id asociado recibido en la URL y lo devuelve.
+	 * Searches for the book with the associated ID received in the URL and returns
+	 * it.
 	 *
-	 * @param bookId Identificador del libro que se esta buscando. Este debe ser una
-	 *               cadena de dígitos.
-	 * @return JSON {@link BookDetailDTO} - El libro buscado
+	 * @param id Identifier of the book being searched. This must be a
+	 *           string of digits.
+	 * @return JSON {@link BookDetailDTO} - The requested book
 	 */
 	@GetMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -89,13 +90,12 @@ public class BookController {
 	}
 
 	/**
-	 * Crea un nuevo libro con la informacion que se recibe en el cuerpo de la
-	 * petición y se regresa un objeto identico con un id auto-generado por la base
-	 * de datos.
+	 * Creates a new book with the information received in the request body
+	 * and returns an identical object with an auto-generated ID from the database.
 	 *
-	 * @param book {@link BookDTO} - EL libro que se desea guardar.
-	 * @return JSON {@link BookDTO} - El libro guardado con el atributo id
-	 *         autogenerado.
+	 * @param bookDTO {@link BookDTO} - The book to be saved.
+	 * @return JSON {@link BookDTO} - The saved book with the auto-generated
+	 *         ID attribute.
 	 */
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -105,13 +105,13 @@ public class BookController {
 	}
 
 	/**
-	 * Actualiza el libro con el id recibido en la URL con la información que se
-	 * recibe en el cuerpo de la petición.
+	 * Updates the book with the ID received in the URL using the information
+	 * received in the request body.
 	 *
-	 * @param bookId Identificador del libro que se desea actualizar. Este debe ser
-	 *               una cadena de dígitos.
-	 * @param book   {@link BookDTO} El libro que se desea guardar.
-	 * @return JSON {@link BookDTO} - El libro guardada.
+	 * @param id      Identifier of the book to update. This must be
+	 *                a string of digits.
+	 * @param bookDTO {@link BookDTO} The book to be saved.
+	 * @return JSON {@link BookDTO} - The saved book.
 	 */
 	@PutMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -122,10 +122,10 @@ public class BookController {
 	}
 
 	/**
-	 * Borra el libro con el id asociado recibido en la URL.
+	 * Deletes the book with the associated ID received in the URL.
 	 *
-	 * @param bookId Identificador del libro que se desea borrar. Este debe ser una
-	 *               cadena de dígitos.
+	 * @param id Identifier of the book to delete. This must be a
+	 *           string of digits.
 	 */
 	@DeleteMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)

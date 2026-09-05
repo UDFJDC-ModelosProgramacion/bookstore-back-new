@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -41,7 +41,7 @@ import co.edu.udistrital.mdp.bookstore.services.BookEditorialService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Clase que implementa el recurso "books/{id}/editorial".
+ * Class implementing the "books/{id}/editorial" resource.
  *
  * @author Jose Bocanegra
  * @version 1.0
@@ -56,13 +56,13 @@ public class BookEditorialController {
 	private final ModelMapper modelMapper;
 
 	/**
-	 * Remplaza la instancia de Editorial asociada a un Book.
+	 * Replaces the Editorial instance associated with a Book.
 	 *
-	 * @param bookId    Identificador del libro que se esta actualizando. Este debe
-	 *                  ser una cadena de dígitos.
-	 * @param editorial La editorial que se será del libro.
-	 * @return JSON {@link BookDetailDTO} - El arreglo de libros guardado en la
-	 *         editorial.
+	 * @param bookId       Identifier of the book being updated. This must
+	 *                     be a string of digits.
+	 * @param editorialDTO The editorial to be assigned to the book.
+	 * @return JSON {@link BookDetailDTO} - The book detail with updated editorial
+	 *         information.
 	 */
 	@PutMapping(value = "/{bookId}/editorial")
 	@ResponseStatus(code = HttpStatus.OK)

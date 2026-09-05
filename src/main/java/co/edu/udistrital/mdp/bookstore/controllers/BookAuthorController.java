@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,7 @@ import co.edu.udistrital.mdp.bookstore.services.BookAuthorService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Clase que implementa el recurso "books/{id}/authors".
+ * Class implementing the "books/{id}/authors" resource.
  *
  * @author Jose Bocanegra
  */
@@ -61,11 +61,11 @@ public class BookAuthorController {
 	private final ModelMapper modelMapper;
 
 	/**
-	 * Asocia un autor existente con un libro existente
+	 * Associates an existing author with an existing book.
 	 *
-	 * @param authorId El ID del autor que se va a asociar
-	 * @param bookId   El ID del libro al cual se le va a asociar el autor
-	 * @return JSON {@link AuthorDetailDTO} - El autor asociado.
+	 * @param authorId The ID of the author to associate
+	 * @param bookId   The ID of the book to associate the author with
+	 * @return JSON {@link AuthorDetailDTO} - The associated author.
 	 */
 	@PostMapping(value = "/{bookId}/authors/{authorId}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -76,11 +76,12 @@ public class BookAuthorController {
 	}
 
 	/**
-	 * Busca y devuelve el autor con el ID recibido en la URL, relativo a un libro.
+	 * Searches for and returns the author with the ID received in the URL, relative
+	 * to a book.
 	 *
-	 * @param authorId El ID del autor que se busca
-	 * @param bookId   El ID del libro del cual se busca el autor
-	 * @return {@link AuthorDetailDTO} - El autor encontrado en el libro.
+	 * @param authorId The ID of the author being searched
+	 * @param bookId   The ID of the book whose author is being searched
+	 * @return {@link AuthorDetailDTO} - The author found for the book.
 	 */
 	@GetMapping(value = "/{bookId}/authors/{authorId}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -91,13 +92,12 @@ public class BookAuthorController {
 	}
 
 	/**
-	 * Actualiza la lista de autores de un libro con la lista que se recibe en el
-	 * cuerpo.
+	 * Updates the list of authors for a book with the list received in the request
+	 * body.
 	 *
-	 * @param bookId  El ID del libro al cual se le va a asociar la lista de autores
-	 * @param authors JSONArray {@link AuthorDTO} - La lista de autores que se desea
-	 *                guardar.
-	 * @return JSONArray {@link AuthorDetailDTO} - La lista actualizada.
+	 * @param bookId  The ID of the book to associate with the list of authors
+	 * @param authors JSONArray {@link AuthorDTO} - The list of authors to save.
+	 * @return JSONArray {@link AuthorDetailDTO} - The updated list.
 	 */
 	@PutMapping(value = "/{bookId}/authors")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -111,11 +111,11 @@ public class BookAuthorController {
 	}
 
 	/**
-	 * Busca y devuelve todos los autores que existen en un libro.
+	 * Searches for and returns all authors associated with a book.
 	 *
-	 * @param booksd El ID del libro del cual se buscan los autores
-	 * @return JSONArray {@link AuthorDetailDTO} - Los autores encontrados en el
-	 *         libro. Si no hay ninguno retorna una lista vacía.
+	 * @param bookId The ID of the book whose authors are being searched
+	 * @return JSONArray {@link AuthorDetailDTO} - The authors found for the book.
+	 *         If none exist, returns an empty list.
 	 */
 	@GetMapping(value = "/{bookId}/authors")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -126,10 +126,10 @@ public class BookAuthorController {
 	}
 
 	/**
-	 * Elimina la conexión entre el autor y el libro recibidos en la URL.
+	 * Removes the association between the author and book received in the URL.
 	 *
-	 * @param bookId   El ID del libro al cual se le va a desasociar el autor
-	 * @param authorId El ID del autor que se desasocia
+	 * @param bookId   The ID of the book to disassociate the author from
+	 * @param authorId The ID of the author being disassociated
 	 */
 	@DeleteMapping(value = "/{bookId}/authors/{authorId}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)

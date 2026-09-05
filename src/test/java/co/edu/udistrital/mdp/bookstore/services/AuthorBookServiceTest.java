@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -48,7 +48,7 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * Pruebas de logica de la relacion Author - Books
+ * Logic tests for the Author - Books relationship.
  *
  * @author Jose Bocanegra
  */
@@ -73,7 +73,7 @@ class AuthorBookServiceTest {
 	private List<BookEntity> bookList = new ArrayList<>();
 
 	/**
-	 * Configuración inicial de la prueba.
+	 * Initial setup for the test.
 	 */
 	@BeforeEach
 	void setUp() {
@@ -82,7 +82,7 @@ class AuthorBookServiceTest {
 	}
 
 	/**
-	 * Limpia las tablas que están implicadas en la prueba.
+	 * Clears the tables involved in the test.
 	 */
 	private void clearData() {
 		entityManager.getEntityManager().createQuery("delete from AuthorEntity").executeUpdate();
@@ -90,7 +90,7 @@ class AuthorBookServiceTest {
 	}
 
 	/**
-	 * Inserta los datos iniciales para el correcto funcionamiento de las pruebas.
+	 * Inserts initial data required for tests to run properly.
 	 */
 	private void insertData() {
 		editorial = factory.manufacturePojo(EditorialEntity.class);
@@ -110,8 +110,7 @@ class AuthorBookServiceTest {
 	}
 
 	/**
-	 * Prueba para asociar un libro a un author.
-	 *
+	 * Test to associate a book with an author.
 	 */
 	@Test
 	void testAddBook() throws EntityNotFoundException, IllegalOperationException {
@@ -135,14 +134,11 @@ class AuthorBookServiceTest {
 		assertEquals(lastBook.getDescription(), newBook.getDescription());
 		assertEquals(lastBook.getIsbn(), newBook.getIsbn());
 		assertEquals(lastBook.getImage(), newBook.getImage());
-
 	}
 
 	/**
-	 * Prueba para asociar un libro a un author que no existe.
-	 *
+	 * Test to associate a book with an author that does not exist.
 	 */
-
 	@Test
 	void testAddBookInvalidAuthor() {
 		assertThrows(EntityNotFoundException.class, () -> {
@@ -154,8 +150,7 @@ class AuthorBookServiceTest {
 	}
 
 	/**
-	 * Prueba para asociar un libro que no existe a un author.
-	 *
+	 * Test to associate a book that does not exist with an author.
 	 */
 	@Test
 	void testAddInvalidBook() {
@@ -165,7 +160,7 @@ class AuthorBookServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar la lista de libros de un autor.
+	 * Test to retrieve the list of books of an author.
 	 */
 	@Test
 	void testGetBooks() throws EntityNotFoundException {
@@ -179,7 +174,7 @@ class AuthorBookServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar la lista de libros de un autor que no existe.
+	 * Test to retrieve the list of books of an author that does not exist.
 	 */
 	@Test
 	void testGetBooksInvalidAuthor() {
@@ -189,9 +184,7 @@ class AuthorBookServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un libro de un autor.
-	 *
-	 * @throws throws EntityNotFoundException, IllegalOperationException
+	 * Test to retrieve a book of an author.
 	 */
 	@Test
 	void testGetBook() throws EntityNotFoundException, IllegalOperationException {
@@ -207,9 +200,7 @@ class AuthorBookServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un libro de un autor que no existe.
-	 *
-	 * @throws throws EntityNotFoundException, IllegalOperationException
+	 * Test to retrieve a book of an author that does not exist.
 	 */
 	@Test
 	void testGetBookInvalidAuthor() {
@@ -220,9 +211,7 @@ class AuthorBookServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un libro que no existe de un autor.
-	 *
-	 * @throws throws EntityNotFoundException, IllegalOperationException
+	 * Test to retrieve a non-existent book of an author.
 	 */
 	@Test
 	void testGetInvalidBook() {
@@ -232,9 +221,7 @@ class AuthorBookServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un libro que no está asociado a un autor.
-	 *
-	 * @throws throws EntityNotFoundException, IllegalOperationException
+	 * Test to retrieve a book that is not associated with an author.
 	 */
 	@Test
 	void testGetBookNotAssociatedAuthor() {
@@ -251,68 +238,61 @@ class AuthorBookServiceTest {
 	}
 
 	/**
-	 * Prueba para actualizar los libros de un autor.
-	 *
-	 * @throws EntityNotFoundException, IllegalOperationException
+	 * Test to update the books of an author.
 	 */
 	@Test
 	void testReplaceBooks() throws EntityNotFoundException {
-		List<BookEntity> nuevaLista = new ArrayList<>();
+		List<BookEntity> newBookList = new ArrayList<>();
 
 		for (int i = 0; i < 3; i++) {
 			BookEntity entity = factory.manufacturePojo(BookEntity.class);
 			entity.setEditorial(editorial);
 			entityManager.persist(entity);
-			nuevaLista.add(entity);
+			newBookList.add(entity);
 		}
 
-		authorBookService.addBooks(author.getId(), nuevaLista);
+		authorBookService.addBooks(author.getId(), newBookList);
 
 		List<BookEntity> bookEntities = entityManager.find(AuthorEntity.class, author.getId()).getBooks();
-		for (BookEntity item : nuevaLista) {
+		for (BookEntity item : newBookList) {
 			assertTrue(bookEntities.contains(item));
 		}
 	}
 
 	/**
-	 * Prueba para actualizar los libros de un autor que no existe.
-	 *
-	 * @throws EntityNotFoundException, IllegalOperationException
+	 * Test to update the books of an author that does not exist.
 	 */
 	@Test
 	void testReplaceBooksInvalidAuthor() {
 		assertThrows(EntityNotFoundException.class, () -> {
-			List<BookEntity> nuevaLista = new ArrayList<>();
+			List<BookEntity> newBookList = new ArrayList<>();
 			for (int i = 0; i < 3; i++) {
 				BookEntity entity = factory.manufacturePojo(BookEntity.class);
 				entity.setEditorial(editorial);
 				entityManager.persist(entity);
-				nuevaLista.add(entity);
+				newBookList.add(entity);
 			}
-			authorBookService.addBooks(0L, nuevaLista);
+			authorBookService.addBooks(0L, newBookList);
 		});
 	}
 
 	/**
-	 * Prueba para actualizar los libros que no existen de un autor.
-	 *
-	 * @throws EntityNotFoundException, IllegalOperationException
+	 * Test to update non-existent books for an author.
 	 */
 	@Test
 	void testReplaceInvalidBooks() {
 		assertThrows(EntityNotFoundException.class, () -> {
-			List<BookEntity> nuevaLista = new ArrayList<>();
+			List<BookEntity> newBookList = new ArrayList<>();
 			BookEntity entity = factory.manufacturePojo(BookEntity.class);
 			entity.setEditorial(editorial);
 			entity.setId(0L);
-			nuevaLista.add(entity);
-			authorBookService.addBooks(author.getId(), nuevaLista);
+			newBookList.add(entity);
+			authorBookService.addBooks(author.getId(), newBookList);
 		});
 	}
 
 	/**
-	 * Prueba desasociar un libro con un autor.
-	 *
+	 * Test to disassociate a book from an author.
 	 */
 	@Test
 	void testRemoveBook() throws EntityNotFoundException {
@@ -323,8 +303,7 @@ class AuthorBookServiceTest {
 	}
 
 	/**
-	 * Prueba desasociar un libro con un autor que no existe.
-	 *
+	 * Test to disassociate a book from an author that does not exist.
 	 */
 	@Test
 	void testRemoveBookInvalidAuthor() {
@@ -336,8 +315,7 @@ class AuthorBookServiceTest {
 	}
 
 	/**
-	 * Prueba desasociar un libro que no existe con un autor.
-	 *
+	 * Test to disassociate a non-existent book from an author.
 	 */
 	@Test
 	void testRemoveInvalidBook() {

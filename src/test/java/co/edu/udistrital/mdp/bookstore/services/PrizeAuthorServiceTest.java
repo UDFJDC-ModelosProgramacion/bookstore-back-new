@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -45,7 +45,7 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * Pruebas de logica de la relacion Prize - Author
+ * Logic tests for the Prize - Author relationship
  *
  * @author Jose Bocanegra
  */
@@ -66,7 +66,7 @@ class PrizeAuthorServiceTest {
 	private List<PrizeEntity> prizesList = new ArrayList<>();
 
 	/**
-	 * Configuración inicial de la prueba.
+	 * Initial setup for the test.
 	 */
 	@BeforeEach
 	void setUp() {
@@ -75,7 +75,7 @@ class PrizeAuthorServiceTest {
 	}
 
 	/**
-	 * Limpia las tablas que están implicadas en la prueba.
+	 * Clears the tables involved in the test.
 	 */
 	private void clearData() {
 		entityManager.getEntityManager().createQuery("delete from PrizeEntity").executeUpdate();
@@ -84,7 +84,7 @@ class PrizeAuthorServiceTest {
 	}
 
 	/**
-	 * Inserta los datos iniciales para el correcto funcionamiento de las pruebas.
+	 * Inserts initial data required for tests to run properly.
 	 */
 	private void insertData() {
 		for (int i = 0; i < 3; i++) {
@@ -109,7 +109,7 @@ class PrizeAuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para asociar un Prize existente a un Author.
+	 * Test to associate an existing Prize to an Author.
 	 * 
 	 * @throws EntityNotFoundException
 	 */
@@ -124,9 +124,7 @@ class PrizeAuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para asociar un Prize existente a un Author que no existe.
-	 * 
-	 * @throws EntityNotFoundException
+	 * Test to associate an existing Prize to a non-existent Author.
 	 */
 	@Test
 	void testAddInvalidAuthor() {
@@ -137,9 +135,7 @@ class PrizeAuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para asociar un Prize que no existe a un Author.
-	 * 
-	 * @throws EntityNotFoundException
+	 * Test to associate a non-existent Prize to an Author.
 	 */
 	@Test
 	void testAddAuthorInvalidPrize() {
@@ -150,7 +146,7 @@ class PrizeAuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un Author.
+	 * Test to retrieve an Author.
 	 * 
 	 * @throws EntityNotFoundException
 	 */
@@ -163,9 +159,7 @@ class PrizeAuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un Author de un premio que no existe.
-	 * 
-	 * @throws EntityNotFoundException
+	 * Test to retrieve an Author for a non-existent Prize.
 	 */
 	@Test
 	void testGetAuthorInvalidPrize() {
@@ -175,9 +169,7 @@ class PrizeAuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un Author que no tiene premio.
-	 * 
-	 * @throws EntityNotFoundException
+	 * Test to retrieve an Author for a prize without an assigned author.
 	 */
 	@Test
 	void testGetAuthorNotPrize() {
@@ -188,8 +180,7 @@ class PrizeAuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para remplazar las instancias de Prizes asociadas a una instancia de
-	 * Author.
+	 * Test to replace the Author instance associated with a Prize instance.
 	 * 
 	 * @throws EntityNotFoundException
 	 */
@@ -203,10 +194,8 @@ class PrizeAuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para remplazar las instancias de Prizes asociadas a una instancia de
-	 * un Author que no existe.
-	 * 
-	 * @throws EntityNotFoundException
+	 * Test to replace the Author instance associated with a Prize using a
+	 * non-existent Author.
 	 */
 	@Test
 	void testReplaceInvalidAuthor() {
@@ -216,10 +205,7 @@ class PrizeAuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para remplazar las instancias de Prizes que no existen asociadas a una
-	 * instancia de Author.
-	 * 
-	 * @throws EntityNotFoundException
+	 * Test to replace the Author instance associated with a non-existent Prize.
 	 */
 	@Test
 	void testReplaceAuthorInvalidPrize() {
@@ -231,11 +217,9 @@ class PrizeAuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para desasociar un Prize existente de un Author existente.
+	 * Test to disassociate an existing Prize from an existing Author.
 	 * 
 	 * @throws EntityNotFoundException
-	 *
-	 * @throws co.edu.udistital.csw.bookstore.exceptions.BusinessLogicException
 	 */
 	@Test
 	void testRemovePrize() throws EntityNotFoundException {
@@ -245,11 +229,7 @@ class PrizeAuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para desasociar un Prize que no existe de un Author existente.
-	 * 
-	 * @throws EntityNotFoundException
-	 *
-	 * @throws co.edu.udistital.csw.bookstore.exceptions.BusinessLogicException
+	 * Test to disassociate a non-existent Prize.
 	 */
 	@Test
 	void testRemoveInvalidPrize() {
@@ -259,7 +239,8 @@ class PrizeAuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para desasociar un Prize existente de un Author existente.
+	 * Test to disassociate an Author from a Prize that does not have one
+	 * associated.
 	 */
 	@Test
 	void testRemoveAuthor() {

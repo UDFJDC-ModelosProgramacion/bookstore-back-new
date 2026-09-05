@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,7 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * Pruebas de logica de Editorials
+ * Logic tests for Editorials
  *
  * @author Jose Bocanegra
  */
@@ -66,7 +66,7 @@ class EditorialServiceTest {
 	private List<EditorialEntity> editorialList = new ArrayList<>();
 
 	/**
-	 * Configuración inicial de la prueba.
+	 * Initial setup for the test.
 	 */
 	@BeforeEach
 	void setUp() {
@@ -75,7 +75,7 @@ class EditorialServiceTest {
 	}
 
 	/**
-	 * Limpia las tablas que están implicadas en la prueba.
+	 * Clears the tables involved in the test.
 	 */
 	private void clearData() {
 		entityManager.getEntityManager().createQuery("delete from BookEntity");
@@ -83,7 +83,7 @@ class EditorialServiceTest {
 	}
 
 	/**
-	 * Inserta los datos iniciales para el correcto funcionamiento de las pruebas.
+	 * Inserts initial data required for tests to run properly.
 	 */
 	private void insertData() {
 
@@ -95,9 +95,9 @@ class EditorialServiceTest {
 	}
 
 	/**
-	 * Prueba para crear un Editorial.
+	 * Test to create an Editorial.
 	 *
-	 * @throws EntityNotFoundException, IllegalOperationException
+	 * @throws IllegalOperationException
 	 */
 	@Test
 	void testCreateEditorial() throws IllegalOperationException {
@@ -111,10 +111,7 @@ class EditorialServiceTest {
 	}
 
 	/**
-	 * Prueba para crear un Editorial con el mismo nombre de un Editorial que ya
-	 * existe.
-	 *
-	 * @throws IllegalOperationException
+	 * Test to create an Editorial with the same name as an existing Editorial.
 	 */
 	@Test
 	void testCreateEditorialWithSameName() {
@@ -126,7 +123,7 @@ class EditorialServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar la lista de Editorials.
+	 * Test to retrieve the list of Editorials.
 	 */
 	@Test
 	void testGetEditorials() {
@@ -144,10 +141,9 @@ class EditorialServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un Editorial.
+	 * Test to retrieve an Editorial.
 	 * 
 	 * @throws EntityNotFoundException
-	 * 
 	 */
 	@Test
 	void testGetEditorial() throws EntityNotFoundException {
@@ -159,10 +155,7 @@ class EditorialServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un Editorial que no existe.
-	 * 
-	 * @throws EntityNotFoundException
-	 * 
+	 * Test to retrieve a non-existent Editorial.
 	 */
 	@Test
 	void testGetEditorialInvalid() {
@@ -172,7 +165,7 @@ class EditorialServiceTest {
 	}
 
 	/**
-	 * Prueba para actualizar una Editorial.
+	 * Test to update an Editorial.
 	 */
 	@Test
 	void testUpdateEditorial() throws EntityNotFoundException {
@@ -186,7 +179,7 @@ class EditorialServiceTest {
 	}
 
 	/**
-	 * Prueba para actualizar una Editorial que no existe.
+	 * Test to update a non-existent Editorial.
 	 */
 	@Test
 	void testUpdateEditorialInvalid() {
@@ -198,7 +191,7 @@ class EditorialServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar un Editorial.
+	 * Test to delete an Editorial.
 	 */
 	@Test
 	void testDeleteEditorial() throws EntityNotFoundException, IllegalOperationException {
@@ -209,7 +202,7 @@ class EditorialServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar una Editorial que no existe.
+	 * Test to delete a non-existent Editorial.
 	 */
 	@Test
 	void testDeleteEditorialInvalid() {
@@ -219,7 +212,7 @@ class EditorialServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar un Editorial con books asociados.
+	 * Test to delete an Editorial with associated books.
 	 */
 	@Test
 	void testDeleteEditorialWithBooks() {

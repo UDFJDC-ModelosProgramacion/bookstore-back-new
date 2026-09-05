@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,7 @@ import co.edu.udistrital.mdp.bookstore.services.EditorialBookService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Clase que implementa el recurso "editorials/{id}/books".
+ * Class implementing the "editorials/{id}/books" resource.
  *
  * @author Jose Bocanegra
  */
@@ -60,14 +60,14 @@ public class EditorialBookController {
 	private final ModelMapper modelMapper;
 
 	/**
-	 * Guarda un libro dentro de una editorial con la informacion que recibe el la
-	 * URL. Se devuelve el libro que se guarda en la editorial.
+	 * Saves a book under an editorial using the information received in the URL.
+	 * Returns the saved book in the editorial.
 	 *
-	 * @param editorialId Identificador de la editorial que se esta actualizando.
-	 *                    Este debe ser una cadena de dígitos.
-	 * @param bookId      Identificador del libro que se desea guardar. Este debe
-	 *                    ser una cadena de dígitos.
-	 * @return JSON {@link BookDTO} - El libro guardado en la editorial.
+	 * @param editorialId Identifier of the editorial being updated. This must
+	 *                    be a string of digits.
+	 * @param bookId      Identifier of the book to save. This must be a
+	 *                    string of digits.
+	 * @return JSON {@link BookDTO} - The book saved in the editorial.
 	 */
 	@PostMapping(value = "/{editorialId}/books/{bookId}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -78,12 +78,12 @@ public class EditorialBookController {
 	}
 
 	/**
-	 * Busca y devuelve todos los libros que existen en la editorial.
+	 * Searches for and returns all books existing in the editorial.
 	 *
-	 * @param editorialId Identificador de la editorial que se esta buscando. Este
-	 *                    debe ser una cadena de dígitos.
-	 * @return JSONArray {@link BookDetailDTO} - Los libros encontrados en la
-	 *         editorial. Si no hay ninguno retorna una lista vacía.
+	 * @param editorialId Identifier of the editorial being searched. This must
+	 *                    be a string of digits.
+	 * @return JSONArray {@link BookDetailDTO} - The books found in the editorial.
+	 *         If none exist, returns an empty list.
 	 */
 	@GetMapping(value = "/{editorialId}/books")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -94,13 +94,14 @@ public class EditorialBookController {
 	}
 
 	/**
-	 * Busca el libro con el id asociado dentro de la editorial con id asociado.
+	 * Searches for the book with the associated ID within the editorial with the
+	 * associated ID.
 	 *
-	 * @param editorialId Identificador de la editorial que se esta buscando. Este
-	 *                    debe ser una cadena de dígitos.
-	 * @param bookId      Identificador del libro que se esta buscando. Este debe
-	 *                    ser una cadena de dígitos.
-	 * @return JSON {@link BookDetailDTO} - El libro buscado
+	 * @param editorialId Identifier of the editorial being searched. This must
+	 *                    be a string of digits.
+	 * @param bookId      Identifier of the book being searched. This must be a
+	 *                    string of digits.
+	 * @return JSON {@link BookDetailDTO} - The requested book
 	 */
 	@GetMapping(value = "/{editorialId}/books/{bookId}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -111,13 +112,13 @@ public class EditorialBookController {
 	}
 
 	/**
-	 * Remplaza las instancias de Book asociadas a una instancia de Editorial
+	 * Replaces the Book instances associated with an Editorial instance.
 	 *
-	 * @param editorialId Identificador de la editorial que se esta remplazando.
-	 *                    Este debe ser una cadena de dígitos.
-	 * @param books       JSONArray {@link BookDTO} El arreglo de libros nuevo para
-	 *                    la editorial.
-	 * @return JSON {@link BookDetailDTO} - El arreglo de libros guardado en la
+	 * @param editorialId Identifier of the editorial being replaced. This must
+	 *                    be a string of digits.
+	 * @param books       JSONArray {@link BookDetailDTO} - The new list of books
+	 *                    for the editorial.
+	 * @return JSON {@link BookDetailDTO} - The array of books saved in the
 	 *         editorial.
 	 */
 	@PutMapping(value = "/{editorialId}/books")

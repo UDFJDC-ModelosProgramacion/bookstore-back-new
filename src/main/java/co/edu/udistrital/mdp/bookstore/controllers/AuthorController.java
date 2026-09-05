@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,7 @@ import co.edu.udistrital.mdp.bookstore.services.AuthorService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Clase que implementa el recurso "authors".
+ * Class implementing the "authors" resource.
  *
  * @author Jose Bocanegra
  */
@@ -61,10 +61,10 @@ public class AuthorController {
 	private final ModelMapper modelMapper;
 
 	/**
-	 * Busca y devuelve todos los autores que existen en la aplicacion.
+	 * Searches for and returns all authors existing in the application.
 	 *
-	 * @return JSONArray {@link AuthorDetailDTO} - Los autores encontrados en la
-	 *         aplicación. Si no hay ninguno retorna una lista vacía.
+	 * @return JSONArray {@link AuthorDetailDTO} - The authors found in the
+	 *         application. If none exist, returns an empty list.
 	 */
 	@GetMapping
 	@ResponseStatus(code = HttpStatus.OK)
@@ -75,11 +75,12 @@ public class AuthorController {
 	}
 
 	/**
-	 * Busca el autor con el id asociado recibido en la URL y lo devuelve.
+	 * Searches for the author with the associated ID received in the URL and
+	 * returns it.
 	 *
-	 * @param id Identificador del autor que se esta buscando. Este debe ser una
-	 *           cadena de dígitos.
-	 * @return JSON {@link AuthorDetailDTO} - El autor buscado
+	 * @param id Identifier of the author being searched. This must be a
+	 *           string of digits.
+	 * @return JSON {@link AuthorDetailDTO} - The requested author
 	 */
 	@GetMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -89,13 +90,12 @@ public class AuthorController {
 	}
 
 	/**
-	 * Crea un nuevo autor con la informacion que se recibe en el cuerpo de la
-	 * petición y se regresa un objeto identico con un id auto-generado por la base
-	 * de datos.
+	 * Creates a new author with the information received in the request body
+	 * and returns an identical object with an auto-generated ID from the database.
 	 *
-	 * @param authorDTO {@link AuthorDTO} - EL autor que se desea guardar.
-	 * @return JSON {@link AuthorDTO} - El autor guardado con el atributo id
-	 *         autogenerado.
+	 * @param authorDTO {@link AuthorDTO} - The author to be saved.
+	 * @return JSON {@link AuthorDTO} - The saved author with the auto-generated
+	 *         ID attribute.
 	 * @throws IllegalOperationException
 	 */
 	@PostMapping
@@ -106,12 +106,12 @@ public class AuthorController {
 	}
 
 	/**
-	 * Actualiza el autor con el id recibido en la URL con la información que se
-	 * recibe en el cuerpo de la petición.
+	 * Updates the author with the ID received in the URL using the information
+	 * received in the request body.
 	 *
-	 * @param id     Identificador del autor que se desea actualizar. Este debe ser
-	 *               una cadena de dígitos.
-	 * @param author {@link AuthorDTO} El autor que se desea guardar.
+	 * @param id        Identifier of the author to update. This must be a
+	 *                  string of digits.
+	 * @param authorDTO {@link AuthorDTO} The author to be saved.
 	 */
 	@PutMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -122,10 +122,10 @@ public class AuthorController {
 	}
 
 	/**
-	 * Borra el autor con el id asociado recibido en la URL.
+	 * Deletes the author with the associated ID received in the URL.
 	 *
-	 * @param id Identificador del autor que se desea borrar. Este debe ser una
-	 *           cadena de dígitos.
+	 * @param id Identifier of the author to delete. This must be a
+	 *           string of digits.
 	 */
 	@DeleteMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)

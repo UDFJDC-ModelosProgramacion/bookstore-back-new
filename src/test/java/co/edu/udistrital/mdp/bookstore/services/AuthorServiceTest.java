@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -51,7 +51,7 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * Pruebas de logica de Authors
+ * Logic tests for Authors
  *
  * @author Jose Bocanegra
  */
@@ -71,7 +71,7 @@ class AuthorServiceTest {
 	private List<AuthorEntity> authorList = new ArrayList<>();
 
 	/**
-	 * Configuración inicial de la prueba.
+	 * Initial setup for the test.
 	 */
 	@BeforeEach
 	void setUp() {
@@ -80,7 +80,7 @@ class AuthorServiceTest {
 	}
 
 	/**
-	 * Limpia las tablas que están implicadas en la prueba.
+	 * Clears the tables involved in the test.
 	 */
 	private void clearData() {
 		entityManager.getEntityManager().createQuery("delete from PrizeEntity").executeUpdate();
@@ -89,7 +89,7 @@ class AuthorServiceTest {
 	}
 
 	/**
-	 * Inserta los datos iniciales para el correcto funcionamiento de las pruebas.
+	 * Inserts initial data required for tests to run properly.
 	 */
 	private void insertData() {
 		for (int i = 0; i < 3; i++) {
@@ -100,7 +100,7 @@ class AuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para crear un Author.
+	 * Test to create an Author.
 	 * 
 	 * @throws IllegalOperationException
 	 */
@@ -124,8 +124,7 @@ class AuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para crear un Author con una fecha de nacimiento mayor que la fecha
-	 * actual.
+	 * Test to create an Author with a birth date greater than the current date.
 	 * 
 	 * @throws IllegalOperationException
 	 */
@@ -142,7 +141,7 @@ class AuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar la lista de Authors.
+	 * Test to retrieve the list of Authors.
 	 */
 	@Test
 	void testGetAuthors() {
@@ -161,7 +160,7 @@ class AuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un Author.
+	 * Test to retrieve an Author.
 	 */
 	@Test
 	void testGetAuthor() throws EntityNotFoundException {
@@ -177,7 +176,7 @@ class AuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un Author que no existe.
+	 * Test to retrieve an Author that does not exist.
 	 */
 	@Test
 	void testGetInvalidAuthor() {
@@ -187,7 +186,7 @@ class AuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para actualizar un Author.
+	 * Test to update an Author.
 	 */
 	@Test
 	void testUpdateAuthor() throws EntityNotFoundException {
@@ -207,7 +206,7 @@ class AuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para actualizar un Author que no existe.
+	 * Test to update an Author that does not exist.
 	 */
 	@Test
 	void testUpdateInvalidAuthor() {
@@ -218,8 +217,7 @@ class AuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar un Author
-	 *
+	 * Test to delete an Author.
 	 */
 	@Test
 	void testDeleteAuthor() throws EntityNotFoundException, IllegalOperationException {
@@ -230,8 +228,7 @@ class AuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar un Author que no existe
-	 *
+	 * Test to delete an Author that does not exist.
 	 */
 	@Test
 	void testDeleteInvalidAuthor() {
@@ -241,8 +238,7 @@ class AuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar un Author asociado a un libro
-	 *
+	 * Test to delete an Author associated with a book.
 	 */
 	@Test
 	void testDeleteAuthorWithBooks() {
@@ -259,8 +255,7 @@ class AuthorServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar un Author asociado a un premio
-	 *
+	 * Test to delete an Author associated with a prize.
 	 */
 	@Test
 	void testDeleteAuthorWithPrize() {

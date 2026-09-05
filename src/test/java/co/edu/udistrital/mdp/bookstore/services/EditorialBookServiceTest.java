@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,6 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+
 package co.edu.udistrital.mdp.bookstore.services;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -45,7 +46,7 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * Pruebas de logica de la relacion Editorial - Books
+ * Logic tests for the Editorial - Books relationship.
  *
  * @author Jose Bocanegra
  */
@@ -66,7 +67,7 @@ class EditorialBookServiceTest {
 	private List<BookEntity> booksList = new ArrayList<>();
 
 	/**
-	 * Configuración inicial de la prueba.
+	 * Initial setup for the test.
 	 */
 	@BeforeEach
 	void setUp() {
@@ -75,7 +76,7 @@ class EditorialBookServiceTest {
 	}
 
 	/**
-	 * Limpia las tablas que están implicadas en la prueba.
+	 * Clears the tables involved in the test.
 	 */
 	private void clearData() {
 		entityManager.getEntityManager().createQuery("delete from BookEntity").executeUpdate();
@@ -83,7 +84,7 @@ class EditorialBookServiceTest {
 	}
 
 	/**
-	 * Inserta los datos iniciales para el correcto funcionamiento de las pruebas.
+	 * Inserts initial data required for tests to run properly.
 	 */
 	private void insertData() {
 		for (int i = 0; i < 3; i++) {
@@ -104,7 +105,7 @@ class EditorialBookServiceTest {
 	}
 
 	/**
-	 * Prueba para asociar un Book existente a un Editorial.
+	 * Test to associate an existing Book with an Editorial.
 	 * 
 	 * @throws EntityNotFoundException
 	 */
@@ -119,7 +120,7 @@ class EditorialBookServiceTest {
 	}
 
 	/**
-	 * Prueba para asociar un Book que no existe a un Editorial.
+	 * Test to associate a non-existent Book with an Editorial.
 	 * 
 	 * @throws EntityNotFoundException
 	 */
@@ -132,7 +133,7 @@ class EditorialBookServiceTest {
 	}
 
 	/**
-	 * Prueba para asociar un Book a una Editorial que no existe.
+	 * Test to associate a Book with a non-existent Editorial.
 	 * 
 	 * @throws EntityNotFoundException
 	 */
@@ -145,12 +146,11 @@ class EditorialBookServiceTest {
 	}
 
 	/**
-	 * Prueba para obtener una colección de instancias de Books asociadas a una
-	 * instancia Editorial.
+	 * Test to retrieve a collection of Book instances associated with an Editorial
+	 * instance.
 	 * 
 	 * @throws EntityNotFoundException
 	 */
-
 	@Test
 	void testGetBooks() throws EntityNotFoundException {
 		List<BookEntity> list = editorialBookService.getBooks(editorialsList.get(0).getId());
@@ -158,12 +158,11 @@ class EditorialBookServiceTest {
 	}
 
 	/**
-	 * Prueba para obtener una colección de instancias de Books asociadas a una
-	 * instancia Editorial que no existe.
+	 * Test to retrieve a collection of Book instances associated with a
+	 * non-existent Editorial instance.
 	 * 
 	 * @throws EntityNotFoundException
 	 */
-
 	@Test
 	void testGetBooksInvalidEditorial() {
 		assertThrows(EntityNotFoundException.class, () -> {
@@ -172,12 +171,10 @@ class EditorialBookServiceTest {
 	}
 
 	/**
-	 * Prueba para obtener una instancia de Book asociada a una instancia Editorial.
+	 * Test to retrieve a Book instance associated with an Editorial instance.
 	 * 
 	 * @throws IllegalOperationException
 	 * @throws EntityNotFoundException
-	 *
-	 * @throws co.edu.udistital.csw.bookstore.exceptions.BusinessLogicException
 	 */
 	@Test
 	void testGetBook() throws EntityNotFoundException, IllegalOperationException {
@@ -193,11 +190,10 @@ class EditorialBookServiceTest {
 	}
 
 	/**
-	 * Prueba para obtener una instancia de Book asociada a una instancia Editorial
-	 * que no existe.
+	 * Test to retrieve a Book instance associated with a non-existent Editorial
+	 * instance.
 	 * 
 	 * @throws EntityNotFoundException
-	 *
 	 */
 	@Test
 	void testGetBookInvalidEditorial() {
@@ -208,11 +204,10 @@ class EditorialBookServiceTest {
 	}
 
 	/**
-	 * Prueba para obtener una instancia de Book que no existe asociada a una
-	 * instancia Editorial.
+	 * Test to retrieve a non-existent Book instance associated with an Editorial
+	 * instance.
 	 * 
 	 * @throws EntityNotFoundException
-	 * 
 	 */
 	@Test
 	void testGetInvalidBook() {
@@ -223,13 +218,13 @@ class EditorialBookServiceTest {
 	}
 
 	/**
-	 * Prueba para obtener una instancia de Books asociada a una instancia Editorial
-	 * que no le pertenece.
+	 * Test to retrieve a Book instance associated with an Editorial instance it
+	 * does not belong to.
 	 *
-	 * @throws co.edu.udistital.csw.bookstore.exceptions.BusinessLogicException
+	 * @throws IllegalOperationException
 	 */
 	@Test
-	void getBookNoAsociadoTest() {
+	void testGetNotAssociatedBook() {
 		assertThrows(IllegalOperationException.class, () -> {
 			EditorialEntity entity = editorialsList.get(0);
 			BookEntity bookEntity = booksList.get(1);
@@ -238,8 +233,7 @@ class EditorialBookServiceTest {
 	}
 
 	/**
-	 * Prueba para remplazar las instancias de Books asociadas a una instancia de
-	 * Editorial.
+	 * Test to replace the Book instances associated with an Editorial instance.
 	 */
 	@Test
 	void testReplaceBooks() throws EntityNotFoundException {
@@ -254,9 +248,8 @@ class EditorialBookServiceTest {
 	}
 
 	/**
-	 * Prueba para remplazar las instancias de Books que no existen asociadas a una
-	 * instancia de
-	 * Editorial.
+	 * Test to replace non-existent Book instances associated with an Editorial
+	 * instance.
 	 */
 	@Test
 	void testReplaceInvalidBooks() {
@@ -273,8 +266,8 @@ class EditorialBookServiceTest {
 	}
 
 	/**
-	 * Prueba para remplazar las instancias de Books asociadas a una instancia de
-	 * Editorial que no existe.
+	 * Test to replace Book instances associated with a non-existent Editorial
+	 * instance.
 	 */
 	@Test
 	void testReplaceBooksInvalidEditorial() {

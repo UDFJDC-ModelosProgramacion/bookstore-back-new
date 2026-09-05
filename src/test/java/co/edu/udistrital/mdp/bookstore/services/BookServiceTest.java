@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,7 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * Pruebas de logica de Books
+ * Logic tests for Books
  *
  * @author Jose Bocanegra
  */
@@ -68,7 +68,7 @@ class BookServiceTest {
 	private EditorialEntity editorialEntity;
 
 	/**
-	 * Configuración inicial de la prueba.
+	 * Initial setup for the test.
 	 */
 	@BeforeEach
 	void setUp() {
@@ -77,7 +77,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Limpia las tablas que están implicadas en la prueba.
+	 * Clears the tables involved in the test.
 	 */
 	private void clearData() {
 		entityManager.getEntityManager().createQuery("delete from BookEntity");
@@ -86,7 +86,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Inserta los datos iniciales para el correcto funcionamiento de las pruebas.
+	 * Inserts initial data required for tests to run properly.
 	 */
 	private void insertData() {
 
@@ -107,7 +107,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Prueba para crear un Book
+	 * Test to create a Book.
 	 */
 	@Test
 	void testCreateBook() throws EntityNotFoundException, IllegalOperationException {
@@ -126,7 +126,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Prueba para crear un Book con ISBN inválido
+	 * Test to create a Book with an invalid ISBN (empty string).
 	 */
 	@Test
 	void testCreateBookWithNoValidISBN() {
@@ -139,7 +139,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Prueba para crear un Book con ISBN inválido
+	 * Test to create a Book with an invalid ISBN (null).
 	 */
 	@Test
 	void testCreateBookWithNoValidISBN2() {
@@ -152,7 +152,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Prueba para crear un Book con ISBN existente.
+	 * Test to create a Book with an already existing ISBN.
 	 */
 	@Test
 	void testCreateBookWithStoredISBN() {
@@ -165,7 +165,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Prueba para crear un Book con una editorial que no existe
+	 * Test to create a Book with an editorial that does not exist.
 	 */
 	@Test
 	void testCreateBookWithInvalidEditorial() {
@@ -180,7 +180,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Prueba para crear un Book con una editorial en null.
+	 * Test to create a Book with a null editorial.
 	 */
 	@Test
 	void testCreateBookWithNullEditorial() {
@@ -193,7 +193,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar la lista de Books.
+	 * Test to retrieve the list of Books.
 	 */
 	@Test
 	void testGetBooks() {
@@ -211,7 +211,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un Book.
+	 * Test to retrieve a Book.
 	 */
 	@Test
 	void testGetBook() throws EntityNotFoundException {
@@ -226,7 +226,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Prueba para consultar un Book que no existe.
+	 * Test to retrieve a non-existent Book.
 	 */
 	@Test
 	void testGetInvalidBook() {
@@ -236,7 +236,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Prueba para actualizar un Book.
+	 * Test to update a Book.
 	 */
 	@Test
 	void testUpdateBook() throws EntityNotFoundException, IllegalOperationException {
@@ -255,7 +255,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Prueba para actualizar un Book inválido.
+	 * Test to update a non-existent Book.
 	 */
 	@Test
 	void testUpdateBookInvalid() {
@@ -267,7 +267,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Prueba para actualizar un Book con ISBN inválido.
+	 * Test to update a Book with an invalid ISBN (empty string).
 	 */
 	@Test
 	void testUpdateBookWithNoValidISBN() {
@@ -281,7 +281,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Prueba para actualizar un Book con ISBN inválido.
+	 * Test to update a Book with an invalid ISBN (null).
 	 */
 	@Test
 	void testUpdateBookWithNoValidISBN2() {
@@ -295,7 +295,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar un Book.
+	 * Test to delete a Book.
 	 */
 	@Test
 	void testDeleteBook() throws EntityNotFoundException, IllegalOperationException {
@@ -306,7 +306,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar un Book que no existe.
+	 * Test to delete a non-existent Book.
 	 */
 	@Test
 	void testDeleteInvalidBook() {
@@ -316,7 +316,7 @@ class BookServiceTest {
 	}
 
 	/**
-	 * Prueba para eliminar un Book con un author asociado.
+	 * Test to delete a Book that has an associated author.
 	 */
 	@Test
 	void testDeleteBookWithAuthor() {

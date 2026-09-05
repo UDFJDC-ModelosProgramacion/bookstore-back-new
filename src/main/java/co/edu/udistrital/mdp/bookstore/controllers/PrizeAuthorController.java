@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2025 Universidad Distrital
+Copyright (c) 2026 Universidad Distrital Francisco José de Caldas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -42,7 +42,7 @@ import co.edu.udistrital.mdp.bookstore.services.PrizeAuthorService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Clase que implementa el recurso "prize/{id}/author".
+ * Class implementing the "prizes/{id}/author" resource.
  *
  * @author Jose Bocanegra
  */
@@ -56,13 +56,13 @@ public class PrizeAuthorController {
 	private final ModelMapper modelMapper;
 
 	/**
-	 * Guarda un author dentro de un premio con la informacion que recibe el la URL.
+	 * Saves an author under a prize using the information received in the URL.
 	 *
-	 * @param prizeId  Identificador de el premio que se esta actualizando. Este
-	 *                 debe ser una cadena de dígitos.
-	 * @param authorId Identificador del autor que se desea guardar. Este debe ser
-	 *                 una cadena de dígitos.
-	 * @return JSON {@link AuthorDTO} - El autor guardado en el premio.
+	 * @param prizeId  Identifier of the prize being updated. This must
+	 *                 be a string of digits.
+	 * @param authorId Identifier of the author to save. This must be a
+	 *                 string of digits.
+	 * @return JSON {@link AuthorDTO} - The saved author associated with the prize.
 	 */
 	@PostMapping(value = "/{prizeId}/author/{authorId}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -73,11 +73,11 @@ public class PrizeAuthorController {
 	}
 
 	/**
-	 * Busca el autor dentro de el premio con id asociado.
+	 * Searches for the author associated with the specified prize ID.
 	 *
-	 * @param prizeId Identificador de el premio que se esta buscando. Este debe ser
-	 *                una cadena de dígitos.
-	 * @return JSON {@link AuthorDetailDTO} - El autor buscado
+	 * @param prizeId Identifier of the prize being searched. This must be a
+	 *                string of digits.
+	 * @return JSON {@link AuthorDetailDTO} - The requested author.
 	 */
 	@GetMapping(value = "/{prizeId}/author")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -87,13 +87,13 @@ public class PrizeAuthorController {
 	}
 
 	/**
-	 * Remplaza la instancia de Author asociada a una instancia de Prize
+	 * Replaces the Author instance associated with a Prize instance.
 	 *
-	 * @param prizeId  Identificador de el premio que se esta actualizando. Este
-	 *                 debe ser una cadena de dígitos.
-	 * @param authorId Identificador de el author que se esta remplazando. Este debe
-	 *                 ser una cadena de dígitos.
-	 * @return JSON {@link AuthorDetailDTO} - El autor actualizado
+	 * @param prizeId  Identifier of the prize being updated. This must
+	 *                 be a string of digits.
+	 * @param authorId Identifier of the replacing author. This must be a
+	 *                 string of digits.
+	 * @return JSON {@link AuthorDetailDTO} - The updated author.
 	 */
 	@PutMapping(value = "/{prizeId}/author/{authorId}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -104,9 +104,9 @@ public class PrizeAuthorController {
 	}
 
 	/**
-	 * Elimina la conexión entre el autor y el premio recibido en la URL.
+	 * Removes the association between the author and the prize received in the URL.
 	 *
-	 * @param prizeId El ID del premio al cual se le va a desasociar el autor
+	 * @param prizeId ID of the prize from which to disassociate the author.
 	 */
 	@DeleteMapping(value = "/{prizeId}/author")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
