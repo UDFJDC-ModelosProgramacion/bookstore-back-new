@@ -23,8 +23,8 @@ SOFTWARE.
 */
 package co.edu.udistrital.mdp.bookstore.exceptions;
 
-/*
- * Excepción que se lanza cuando en el proceso de búsqueda no se encuenta una entidad
+/**
+ * Exception thrown when an entity is not found during a search process.
  */
 public class EntityNotFoundException extends Exception {
 

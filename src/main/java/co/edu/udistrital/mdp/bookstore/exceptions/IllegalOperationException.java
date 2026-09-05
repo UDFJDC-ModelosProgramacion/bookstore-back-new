@@ -23,8 +23,8 @@ SOFTWARE.
 */
 package co.edu.udistrital.mdp.bookstore.exceptions;
 
-/*
- * Excepción que se lanza cuando se realiza una operación ilegal
+/**
+ * Exception thrown when an illegal operation is performed.
  */
 public class IllegalOperationException extends Exception {
 
