@@ -31,7 +31,7 @@ import lombok.Data;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- * Clase que representa una reseña en la persistencia
+ * Class representing a review in persistence
  *
  * @author Jose Bocanegra
  */

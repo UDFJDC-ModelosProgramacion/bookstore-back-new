@@ -40,8 +40,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Clase que implementa la conexion con la persistencia para la entidad de
- * Editorial.
+ * Class implementing persistence layer logic for the Editorial entity.
  *
  * @author Jose Bocanegra
  */
@@ -54,81 +53,82 @@ public class EditorialService {
 	final EditorialRepository editorialRepository;
 
 	/**
-	 * Crea una editorial en la persistencia.
+	 * Creates an editorial in persistence.
 	 *
-	 * @param editorialEntity La entidad que representa la editorial a persistir.
-	 * @return La entidad de la editorial luego de persistirla.
-	 * @throws IllegalOperationException Si la editorial a persistir ya existe.
+	 * @param editorialEntity The entity representing the editorial to persist.
+	 * @return The editorial entity after persisting it.
+	 * @throws IllegalOperationException If the editorial to persist already exists.
 	 */
 	@Transactional
 	public EditorialEntity createEditorial(EditorialEntity editorialEntity) throws IllegalOperationException {
-		log.info("Inicia proceso de creación de la editorial");
+		log.info("Starting process to create editorial");
 		if (!editorialRepository.findByName(editorialEntity.getName()).isEmpty()) {
-			throw new IllegalOperationException("Editorial name already exists");
+			throw new IllegalOperationException(ErrorMessage.EDITORIAL_EXISTS);
 		}
-		log.info("Termina proceso de creación de la editorial");
+		log.info("Finished process to create editorial");
 		return editorialRepository.save(editorialEntity);
 	}
 
 	/**
 	 *
-	 * Obtener todas las editoriales existentes en la base de datos.
+	 * Retrieves all existing editorials from the database.
 	 *
-	 * @return una lista de editoriales.
+	 * @return A list of editorials.
 	 */
 	@Transactional
 	public List<EditorialEntity> getEditorials() {
-		log.info("Inicia proceso de consultar todas las editoriales");
+		log.info("Starting process to fetch all editorials");
 		return editorialRepository.findAll();
 	}
 
 	/**
 	 *
-	 * Obtener una editorial por medio de su id.
+	 * Retrieves an editorial by its ID.
 	 *
-	 * @param editorialId: id de la editorial para ser buscada.
-	 * @return la editorial solicitada por medio de su id.
+	 * @param editorialId: ID of the editorial to search for.
+	 * @return The requested editorial matching the ID.
 	 */
 	@Transactional
 	public EditorialEntity getEditorial(Long editorialId) throws EntityNotFoundException {
-		log.info("Inicia proceso de consultar la editorial con id = {0}", editorialId);
+		log.info("Starting process to fetch editorial with id = {0}", editorialId);
 		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);
 		if (editorialOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.EDITORIAL_NOT_FOUND);
-		log.info("Termina proceso de consultar la editorial con id = {0}", editorialId);
+		log.info("Finished process to fetch editorial with id = {0}", editorialId);
 		EditorialEntity editorialEntity = editorialOptional.get();
 		return editorialEntity;
 	}
 
 	/**
 	 *
-	 * Actualizar una editorial.
+	 * Updates an editorial.
 	 *
-	 * @param editorialId: id de la editorial para buscarla en la base de datos.
-	 * @param editorial:   editorial con los cambios para ser actualizada.
-	 * @return la editorial con los cambios actualizados en la base de datos.
+	 * @param editorialId: ID of the editorial to find in the database.
+	 * @param editorial:   Editorial containing the changes to update.
+	 * @return The editorial with updated changes saved in the database.
 	 */
 	@Transactional
 	public EditorialEntity updateEditorial(Long editorialId, EditorialEntity editorial) throws EntityNotFoundException {
-		log.info("Inicia proceso de actualizar la editorial con id = {0}", editorialId);
+		log.info("Starting process to update editorial with id = {0}", editorialId);
 		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);
 		if (editorialOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.EDITORIAL_NOT_FOUND);
 
 		editorial.setId(editorialId);
-		log.info("Termina proceso de actualizar la editorial con id = {0}", editorialId);
+		log.info("Finished process to update editorial with id = {0}", editorialId);
 		return editorialRepository.save(editorial);
 	}
 
 	/**
-	 * Borrar un editorial
+	 * Deletes an editorial
 	 *
-	 * @param editorialId: id de la editorial a borrar
-	 * @throws BusinessLogicException Si la editorial a eliminar tiene libros.
+	 * @param editorialId: ID of the editorial to delete
+	 * @throws IllegalOperationException If the editorial to delete has associated
+	 *                                   books.
 	 */
 	@Transactional
 	public void deleteEditorial(Long editorialId) throws EntityNotFoundException, IllegalOperationException {
-		log.info("Inicia proceso de borrar la editorial con id = {0}", editorialId);
+		log.info("Starting process to delete editorial with id = {0}", editorialId);
 		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);
 		if (editorialOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.EDITORIAL_NOT_FOUND);
@@ -138,11 +138,10 @@ public class EditorialService {
 		List<BookEntity> books = editorialEntity.getBooks();
 
 		if (!books.isEmpty()) {
-			throw new IllegalOperationException(
-					"Unable to delete editorial because it has associated books");
+			throw new IllegalOperationException(ErrorMessage.EDITORIAL_ASSOCIATED_BOOKS);
 		}
 
 		editorialRepository.deleteById(editorialId);
-		log.info("Termina proceso de borrar la editorial con id = {0}", editorialId);
+		log.info("Finished process to delete editorial with id = {0}", editorialId);
 	}
 }

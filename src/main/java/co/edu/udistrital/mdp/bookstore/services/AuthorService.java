@@ -42,8 +42,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Clase que implementa la conexion con la persistencia para la entidad de
- * Author.
+ * Class that implements the persistence connection for the
+ * Author entity.
  *
  * @author Jose Bocanegra
  */
@@ -56,80 +56,80 @@ public class AuthorService {
 	final AuthorRepository authorRepository;
 
 	/**
-	 * Se encarga de crear un Author en la base de datos.
+	 * Handles creating an Author in the database.
 	 *
-	 * @param author Objeto de AuthorEntity con los datos nuevos
-	 * @return Objeto de AuthorEntity con los datos nuevos y su ID.
+	 * @param author AuthorEntity object with new data
+	 * @return AuthorEntity object with new data and its ID.
 	 * @throws IllegalOperationException
 	 */
 	@Transactional
 	public AuthorEntity createAuthor(AuthorEntity author) throws IllegalOperationException {
-		log.info("Inicia proceso de creación del autor");
+		log.info("Starting process to create author");
 		Calendar calendar = Calendar.getInstance();
 		if (author.getBirthDate().compareTo(calendar.getTime()) > 0) {
-			throw new IllegalOperationException("Birth date if ater current date");
+			throw new IllegalOperationException(ErrorMessage.BIRHT_DATE_AFTER);
 		}
 
 		return authorRepository.save(author);
 	}
 
 	/**
-	 * Obtiene la lista de los registros de Author.
+	 * Retrieves the list of Author records.
 	 *
-	 * @return Colección de objetos de AuthorEntity.
+	 * @return Collection of AuthorEntity objects.
 	 */
 	@Transactional
 	public List<AuthorEntity> getAuthors() {
-		log.info("Inicia proceso de consultar todos los autores");
+		log.info("Starting process to fetch all authors");
 		return authorRepository.findAll();
 	}
 
 	/**
-	 * Obtiene los datos de una instancia de Author a partir de su ID.
+	 * Retrieves the data of an Author instance by its ID.
 	 *
-	 * @param authorId Identificador de la instancia a consultar
-	 * @return Instancia de AuthorEntity con los datos del Author consultado.
+	 * @param authorId Identifier of the instance to retrieve
+	 * @return AuthorEntity instance with the queried Author data.
 	 */
 	@Transactional
 	public AuthorEntity getAuthor(Long authorId) throws EntityNotFoundException {
-		log.info("Inicia proceso de consultar el autor con id = {0}", authorId);
+		log.info("Starting process to fetch author with id = {0}", authorId);
 		Optional<AuthorEntity> authorOptional = authorRepository.findById(authorId);
 
 		if (authorOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.AUTHOR_NOT_FOUND);
 
 		AuthorEntity authorEntity = authorOptional.get();
-		log.info("Termina proceso de consultar el autor con id = {0}", authorId);
+		log.info("Finished process to fetch author with id = {0}", authorId);
 		return authorEntity;
 	}
 
 	/**
-	 * Actualiza la información de una instancia de Author.
+	 * Updates the information of an Author instance.
 	 *
-	 * @param authorId     Identificador de la instancia a actualizar
-	 * @param authorEntity Instancia de AuthorEntity con los nuevos datos.
-	 * @return Instancia de AuthorEntity con los datos actualizados.
+	 * @param authorId     Identifier of the instance to update
+	 * @param authorEntity AuthorEntity instance with the new data.
+	 * @return AuthorEntity instance with updated data.
 	 */
 	@Transactional
 	public AuthorEntity updateAuthor(Long authorId, AuthorEntity author) throws EntityNotFoundException {
-		log.info("Inicia proceso de actualizar el autor con id = {0}", authorId);
+		log.info("Starting process to update author with id = {0}", authorId);
 		Optional<AuthorEntity> authorOptional = authorRepository.findById(authorId);
 		if (authorOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.AUTHOR_NOT_FOUND);
-		log.info("Termina proceso de actualizar el autor con id = {0}", authorId);
+		log.info("Finished process to update author with id = {0}", authorId);
 		author.setId(authorId);
 		return authorRepository.save(author);
 	}
 
 	/**
-	 * Elimina una instancia de Author de la base de datos.
+	 * Deletes an Author instance from the database.
 	 *
-	 * @param authorId Identificador de la instancia a eliminar.
-	 * @throws BusinessLogicException si el autor tiene libros asociados.
+	 * @param authorId Identifier of the instance to delete.
+	 * @throws BusinessLogicException if the author has associated books.
 	 */
 	@Transactional
 	public void deleteAuthor(Long authorId) throws IllegalOperationException, EntityNotFoundException {
-		log.info("Inicia proceso de borrar el autor con id = {0}", authorId);
+		log.info("Starting process to delete author with id = {0}", authorId);
 		Optional<AuthorEntity> authorOptional = authorRepository.findById(authorId);
 		if (authorOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.AUTHOR_NOT_FOUND);
@@ -138,13 +138,13 @@ public class AuthorService {
 
 		List<BookEntity> books = authorEntity.getBooks();
 		if (!books.isEmpty())
-			throw new IllegalOperationException("Unable to delete the author because he/she has associated books");
+			throw new IllegalOperationException(ErrorMessage.AUTHOR_ASSOCIATED_BOOKS);
 
 		List<PrizeEntity> prizes = authorEntity.getPrizes();
 		if (!prizes.isEmpty())
-			throw new IllegalOperationException("Unable to delete the author because he/she has associated prizes");
+			throw new IllegalOperationException(ErrorMessage.AUTHOR_ASSOCIATED_PRIZES);
 
 		authorRepository.deleteById(authorId);
-		log.info("Termina proceso de borrar el autor con id = {0}", authorId);
+		log.info("Finished process to delete author with id = {0}", authorId);
 	}
 }

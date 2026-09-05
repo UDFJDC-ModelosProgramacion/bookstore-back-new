@@ -48,16 +48,16 @@ public class BookEditorialService {
 	private final EditorialRepository editorialRepository;
 
 	/**
-	 * Remplazar la editorial de un book.
+	 * Replaces the editorial of a book.
 	 *
-	 * @param bookId      id del libro que se quiere actualizar.
-	 * @param editorialId El id de la editorial que se será del libro.
-	 * @return el nuevo libro.
+	 * @param bookId      ID of the book to update.
+	 * @param editorialId The ID of the editorial to be assigned to the book.
+	 * @return the updated book.
 	 */
 
 	@Transactional
 	public BookEntity replaceEditorial(Long bookId, Long editorialId) throws EntityNotFoundException {
-		log.info("Inicia proceso de actualizar libro con id = {0}", bookId);
+		log.info("Starting process to update book with id = {0}", bookId);
 		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
 		if (bookOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.BOOK_NOT_FOUND);
@@ -70,20 +70,20 @@ public class BookEditorialService {
 		EditorialEntity editorialEntity = editorialOptional.get();
 
 		bookEntity.setEditorial(editorialEntity);
-		log.info("Termina proceso de actualizar libro con id = {0}", bookId);
+		log.info("Finished process to update book with id = {0}", bookId);
 
 		return bookEntity;
 	}
 
 	/**
-	 * Borrar un book de una editorial. Este metodo se utiliza para borrar la
-	 * relacion de un libro.
+	 * Deletes an editorial from a book. This method is used to remove the
+	 * relationship of a book.
 	 *
-	 * @param booksId El libro que se desea borrar de la editorial.
+	 * @param bookId The book whose editorial relationship is to be deleted.
 	 */
 	@Transactional
 	public void removeEditorial(Long bookId) throws EntityNotFoundException {
-		log.info("Inicia proceso de borrar la Editorial del libro con id = {0}", bookId);
+		log.info("Starting process to delete the Editorial of the book with id = {0}", bookId);
 		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
 
 		if (bookOptional.isEmpty())
@@ -97,6 +97,6 @@ public class BookEditorialService {
 		editorialOptional.ifPresent(editorial -> editorial.getBooks().remove(bookEntity));
 
 		bookEntity.setEditorial(null);
-		log.info("Termina proceso de borrar la Editorial del libro con id = {0}", bookId);
+		log.info("Finished process to delete the Editorial of the book with id = {0}", bookId);
 	}
 }

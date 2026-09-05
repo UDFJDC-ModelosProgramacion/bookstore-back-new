@@ -32,7 +32,7 @@ import lombok.Data;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- * Clase que representa una organizacion en la persistencia
+ * Class representing an organization in persistence
  *
  * @author Jose Bocanegra
  */

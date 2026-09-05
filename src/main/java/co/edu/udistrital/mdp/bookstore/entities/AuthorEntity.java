@@ -38,7 +38,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
- * Clase que representa un autor en la persistencia
+ * Class representing an author in persistence
  *
  * @author Jose Bocanegra
  */

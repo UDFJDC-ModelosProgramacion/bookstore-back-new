@@ -38,7 +38,7 @@ import lombok.Data;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- * Clase que representa un libro en la persistencia
+ * Class representing a book in persistence
  *
  * @author Jose Bocanegra
  */

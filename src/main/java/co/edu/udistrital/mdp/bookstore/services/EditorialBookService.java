@@ -42,8 +42,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Clase que implementa la conexión con la persistencia para la relación entre
- * la entidad Editorial y Book.
+ * Class that implements the persistence connection for the relationship between
+ * the Editorial and Book entities.
  *
  * @author Jose Bocanegra
  */
@@ -57,17 +57,17 @@ public class EditorialBookService {
 	private final EditorialRepository editorialRepository;
 
 	/**
-	 * Agregar un book a la editorial
+	 * Adds a book to the editorial
 	 *
-	 * @param bookId      El id libro a guardar
-	 * @param editorialId El id de la editorial en la cual se va a guardar el libro.
-	 * @return El libro creado.
+	 * @param bookId      The ID of the book to save
+	 * @param editorialId The ID of the editorial where the book will be saved.
+	 * @return The created book.
 	 * @throws EntityNotFoundException
 	 */
 
 	@Transactional
 	public BookEntity addBook(Long bookId, Long editorialId) throws EntityNotFoundException {
-		log.info("Inicia proceso de agregarle un libro a la editorial con id = {0}", editorialId);
+		log.info("Starting process to add a book to the editorial with id = {0}", editorialId);
 
 		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
 		if (bookOptional.isEmpty())
@@ -81,20 +81,20 @@ public class EditorialBookService {
 		EditorialEntity editorialEntity = editorialOptional.get();
 
 		bookEntity.setEditorial(editorialEntity);
-		log.info("Termina proceso de agregarle un libro a la editorial con id = {0}", editorialId);
+		log.info("Finished process to add a book to the editorial with id = {0}", editorialId);
 		return bookEntity;
 	}
 
 	/**
-	 * Retorna todos los books asociados a una editorial
+	 * Returns all books associated with an editorial
 	 *
-	 * @param editorialId El ID de la editorial buscada
-	 * @return La lista de libros de la editorial
-	 * @throws EntityNotFoundException si la editorial no existe
+	 * @param editorialId The ID of the target editorial
+	 * @return The list of books belonging to the editorial
+	 * @throws EntityNotFoundException if the editorial does not exist
 	 */
 	@Transactional
 	public List<BookEntity> getBooks(Long editorialId) throws EntityNotFoundException {
-		log.info("Inicia proceso de consultar los libros asociados a la editorial con id = {0}", editorialId);
+		log.info("Starting process to fetch books associated with editorial with id = {0}", editorialId);
 		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);
 		if (editorialOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.EDITORIAL_NOT_FOUND);
@@ -104,17 +104,18 @@ public class EditorialBookService {
 	}
 
 	/**
-	 * Retorna un book asociado a una editorial
+	 * Returns a book associated with an editorial
 	 *
-	 * @param editorialId El id de la editorial a buscar.
-	 * @param bookId      El id del libro a buscar
-	 * @return El libro encontrado dentro de la editorial.
-	 * @throws EntityNotFoundException   Si el libro no se encuentra en la editorial
-	 * @throws IllegalOperationException Si el libro no está asociado a la editorial
+	 * @param editorialId The ID of the editorial to search.
+	 * @param bookId      The ID of the book to search
+	 * @return The book found within the editorial.
+	 * @throws EntityNotFoundException   If the book is not found in the editorial
+	 * @throws IllegalOperationException If the book is not associated with the
+	 *                                   editorial
 	 */
 	@Transactional
 	public BookEntity getBook(Long editorialId, Long bookId) throws EntityNotFoundException, IllegalOperationException {
-		log.info("Inicia proceso de consultar el libro con id = {0} de la editorial con id = " + editorialId, bookId);
+		log.info("Starting process to fetch book with id = {0} of editorial with id = " + editorialId, bookId);
 
 		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);
 		if (editorialOptional.isEmpty())
@@ -124,29 +125,29 @@ public class EditorialBookService {
 		if (bookOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.BOOK_NOT_FOUND);
 
-		log.info("Termina proceso de consultar el libro con id = {0} de la editorial con id = " + editorialId, bookId);
+		log.info("Finished process to fetch book with id = {0} of editorial with id = " + editorialId, bookId);
 
 		EditorialEntity editorialEntity = editorialOptional.get();
 		BookEntity bookEntity = bookOptional.get();
 
 		if (!editorialEntity.getBooks().contains(bookEntity))
-			throw new IllegalOperationException("The book is not associated to the editorial");
+			throw new IllegalOperationException(ErrorMessage.BOOK_NOT_ASSOCIATED_EDITORIAL);
 
 		return bookEntity;
 	}
 
 	/**
-	 * Remplazar books de una editorial
+	 * Replaces books of an editorial
 	 *
-	 * @param books       Lista de libros que serán los de la editorial.
-	 * @param editorialId El id de la editorial que se quiere actualizar.
-	 * @return La lista de libros actualizada.
-	 * @throws EntityNotFoundException Si la editorial o un libro de la lista no se
-	 *                                 encuentran
+	 * @param books       List of books that will belong to the editorial.
+	 * @param editorialId The ID of the editorial to update.
+	 * @return The updated list of books.
+	 * @throws EntityNotFoundException If the editorial or a book in the list is not
+	 *                                 found
 	 */
 	@Transactional
 	public List<BookEntity> replaceBooks(Long editorialId, List<BookEntity> books) throws EntityNotFoundException {
-		log.info("Inicia proceso de actualizar la editorial con id = {0}", editorialId);
+		log.info("Starting process to update editorial with id = {0}", editorialId);
 		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);
 		if (editorialOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.EDITORIAL_NOT_FOUND);

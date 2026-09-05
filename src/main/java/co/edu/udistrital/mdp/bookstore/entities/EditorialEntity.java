@@ -34,7 +34,7 @@ import lombok.Data;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- * Clase que representa una editorial en la persistencia
+ * Class representing an editorial in persistence
  *
  * @author Jose Bocanegra
  */

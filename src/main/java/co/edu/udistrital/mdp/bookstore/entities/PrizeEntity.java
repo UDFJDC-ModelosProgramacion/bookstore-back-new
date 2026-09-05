@@ -34,7 +34,7 @@ import lombok.Data;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- * Clase que representa un premio en la persistencia
+ * Class representing a prize in persistence
  *
  * @author Jose Bocanegra
  */

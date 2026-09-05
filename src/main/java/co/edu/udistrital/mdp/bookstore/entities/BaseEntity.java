@@ -33,8 +33,8 @@ import lombok.Data;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- * Entidad genérica de la que heredan todas las entidades. Contiene la
- * referencia al atributo id
+ * Generic entity inherited by all entities. Contains the
+ * reference to the id attribute
  *
  * @author Jose Bocanegra
  */
