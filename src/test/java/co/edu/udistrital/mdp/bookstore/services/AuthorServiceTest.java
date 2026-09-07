@@ -26,6 +26,8 @@ package co.edu.udistrital.mdp.bookstore.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -111,7 +113,12 @@ class AuthorServiceTest {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
 		calendar.add(Calendar.DATE, -15);
-		newEntity.setBirthDate(calendar.getTime());
+
+		LocalDate calendarDate = calendar.toInstant()
+				.atZone(ZoneId.systemDefault())
+				.toLocalDate();
+
+		newEntity.setBirthDate(calendarDate);
 		AuthorEntity result = authorService.createAuthor(newEntity);
 		assertNotNull(result);
 
@@ -135,7 +142,12 @@ class AuthorServiceTest {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(new Date());
 			calendar.add(Calendar.DATE, 15);
-			newEntity.setBirthDate(calendar.getTime());
+
+			LocalDate calendarDate = calendar.toInstant()
+					.atZone(ZoneId.systemDefault())
+					.toLocalDate();
+
+			newEntity.setBirthDate(calendarDate);
 			authorService.createAuthor(newEntity);
 		});
 	}

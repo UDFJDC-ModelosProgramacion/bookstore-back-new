@@ -95,8 +95,7 @@ public class EditorialService {
 		if (editorialOptional.isEmpty())
 			throw new EntityNotFoundException(ErrorMessage.EDITORIAL_NOT_FOUND);
 		log.info("Finished process to fetch editorial with id = {0}", editorialId);
-		EditorialEntity editorialEntity = editorialOptional.get();
-		return editorialEntity;
+		return editorialOptional.get();
 	}
 
 	/**

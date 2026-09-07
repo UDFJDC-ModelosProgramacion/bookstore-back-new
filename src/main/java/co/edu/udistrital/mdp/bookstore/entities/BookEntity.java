@@ -24,8 +24,8 @@ SOFTWARE.
 
 package co.edu.udistrital.mdp.bookstore.entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -51,7 +51,7 @@ public class BookEntity extends BaseEntity {
 	private String isbn;
 	private String image;
 
-	private Date publishingDate;
+	private LocalDate publishingDate;
 
 	private String description;
 

@@ -23,14 +23,14 @@ SOFTWARE.
 */
 package co.edu.udistrital.mdp.bookstore.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.Data;
 
 @Data
 public class PrizeDTO {
 	private Long id;
-	private Date premiationDate;
+	private LocalDate premiationDate;
 	private String name;
 	private String description;
 	private OrganizationDTO organization;

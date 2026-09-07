@@ -24,8 +24,8 @@ SOFTWARE.
 
 package co.edu.udistrital.mdp.bookstore.entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import co.edu.udistrital.mdp.bookstore.podam.DateStrategy;
@@ -48,7 +48,7 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
 public class AuthorEntity extends BaseEntity {
 
 	@PodamStrategyValue(DateStrategy.class)
-	private Date birthDate;
+	private LocalDate birthDate;
 
 	@PodamExclude
 	@ManyToMany(mappedBy = "authors")

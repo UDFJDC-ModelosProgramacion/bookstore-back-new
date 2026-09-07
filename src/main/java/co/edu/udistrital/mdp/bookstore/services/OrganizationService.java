@@ -99,9 +99,7 @@ public class OrganizationService {
 
 		log.info("Finished process to fetch organization with id = {0}", organizationId);
 
-		OrganizationEntity organizationEntity = organizationOptional.get();
-
-		return organizationEntity;
+		return organizationOptional.get();
 	}
 
 	/**

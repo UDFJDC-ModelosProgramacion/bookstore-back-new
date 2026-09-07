@@ -109,8 +109,7 @@ public class PrizeService {
 			throw new EntityNotFoundException(ErrorMessage.PRIZE_NOT_FOUND);
 
 		log.info("Finished process to fetch prize with id = {0}", prizeId);
-		PrizeEntity prizeEntity = prizeOptional.get();
-		return prizeEntity;
+		return prizeOptional.get();
 	}
 
 	/**

@@ -23,7 +23,7 @@ SOFTWARE.
 */
 package co.edu.udistrital.mdp.bookstore.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.Data;
 
@@ -33,7 +33,7 @@ public class BookDTO {
 	private String name;
 	private String isbn;
 	private String image;
-	private Date publishingDate;
+	private LocalDate publishingDate;
 	private String description;
 	private EditorialDTO editorial;
 }

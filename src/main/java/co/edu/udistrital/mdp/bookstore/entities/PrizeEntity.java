@@ -24,7 +24,7 @@ SOFTWARE.
 
 package co.edu.udistrital.mdp.bookstore.entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -43,7 +43,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class PrizeEntity extends BaseEntity {
 
-	private Date premiationDate;
+	private LocalDate premiationDate;
 
 	@PodamExclude
 	@ManyToOne

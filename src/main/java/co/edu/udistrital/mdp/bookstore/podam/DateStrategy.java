@@ -24,6 +24,8 @@ SOFTWARE.
 package co.edu.udistrital.mdp.bookstore.podam;
 
 import java.lang.annotation.Annotation;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +36,7 @@ import uk.co.jemos.podam.common.AttributeStrategy;
 public class DateStrategy implements AttributeStrategy<Date> {
 	Random r = new Random();
 
-	public Date getValue() {
+	public LocalDate getValue() {
 		Calendar c = Calendar.getInstance();
 		int maxYear = 9999;
 		c.set(Calendar.YEAR,
@@ -46,7 +48,12 @@ public class DateStrategy implements AttributeStrategy<Date> {
 		c.set(Calendar.MINUTE, c.getActualMinimum(Calendar.MINUTE));
 		c.set(Calendar.SECOND, c.getActualMinimum(Calendar.SECOND));
 		c.set(Calendar.MILLISECOND, c.getActualMinimum(Calendar.MILLISECOND));
-		return c.getTime();
+
+		LocalDate calendarDate = c.toInstant()
+				.atZone(ZoneId.systemDefault())
+				.toLocalDate();
+
+		return calendarDate;
 	}
 
 	@Override
