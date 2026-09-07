@@ -25,7 +25,7 @@ SOFTWARE.
 package co.edu.udistrital.mdp.bookstore.services;
 
 import java.time.LocalDate;
-
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,7 +67,7 @@ public class AuthorService {
 	public AuthorEntity createAuthor(AuthorEntity author) throws IllegalOperationException {
 		log.info("Starting process to create author");
 
-		LocalDate today = LocalDate.now();
+		LocalDate today = LocalDate.now(ZoneId.systemDefault());
 
 		if (author.getBirthDate().isAfter(today)) {
 			throw new IllegalOperationException(ErrorMessage.BIRHT_DATE_AFTER);

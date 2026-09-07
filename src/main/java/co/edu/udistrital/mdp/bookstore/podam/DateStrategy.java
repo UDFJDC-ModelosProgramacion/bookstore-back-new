@@ -25,7 +25,7 @@ package co.edu.udistrital.mdp.bookstore.podam;
 
 import java.lang.annotation.Annotation;
 import java.time.LocalDate;
-
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -37,7 +37,7 @@ public class DateStrategy implements AttributeStrategy<LocalDate> {
 
 	public LocalDate getValue() {
 		LocalDate startInclusive = LocalDate.of(1600, 1, 1);
-		LocalDate endExclusive = LocalDate.now();
+		LocalDate endExclusive = LocalDate.now(ZoneId.systemDefault());
 		return getRandomLocalDate(startInclusive, endExclusive);
 	}
 
