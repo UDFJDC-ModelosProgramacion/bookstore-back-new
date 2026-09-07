@@ -27,13 +27,12 @@ import java.lang.annotation.Annotation;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import uk.co.jemos.podam.common.AttributeStrategy;
 
-public class DateStrategy implements AttributeStrategy<Date> {
+public class DateStrategy implements AttributeStrategy<LocalDate> {
 	Random r = new Random();
 
 	public LocalDate getValue() {
@@ -56,7 +55,8 @@ public class DateStrategy implements AttributeStrategy<Date> {
 	}
 
 	@Override
-	public Date getValue(Class<?> attrType, List<Annotation> attrAnnotations) {
+	public LocalDate getValue(Class<?> attrType, List<Annotation> attrAnnotations) {
 		return null;
 	}
+
 }
