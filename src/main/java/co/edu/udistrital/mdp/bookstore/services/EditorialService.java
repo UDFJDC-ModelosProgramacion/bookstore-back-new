@@ -59,7 +59,7 @@ public class EditorialService {
 	 * @return The editorial entity after persisting it.
 	 * @throws IllegalOperationException If the editorial to persist already exists.
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { IllegalOperationException.class })
 	public EditorialEntity createEditorial(EditorialEntity editorialEntity) throws IllegalOperationException {
 		log.info("Starting process to create editorial");
 		if (!editorialRepository.findByName(editorialEntity.getName()).isEmpty()) {
@@ -88,7 +88,7 @@ public class EditorialService {
 	 * @param editorialId: ID of the editorial to search for.
 	 * @return The requested editorial matching the ID.
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public EditorialEntity getEditorial(Long editorialId) throws EntityNotFoundException {
 		log.info("Starting process to fetch editorial with id = {0}", editorialId);
 		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);
@@ -107,7 +107,7 @@ public class EditorialService {
 	 * @param editorial:   Editorial containing the changes to update.
 	 * @return The editorial with updated changes saved in the database.
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public EditorialEntity updateEditorial(Long editorialId, EditorialEntity editorial) throws EntityNotFoundException {
 		log.info("Starting process to update editorial with id = {0}", editorialId);
 		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);
@@ -126,7 +126,7 @@ public class EditorialService {
 	 * @throws IllegalOperationException If the editorial to delete has associated
 	 *                                   books.
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class, IllegalOperationException.class })
 	public void deleteEditorial(Long editorialId) throws EntityNotFoundException, IllegalOperationException {
 		log.info("Starting process to delete editorial with id = {0}", editorialId);
 		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);

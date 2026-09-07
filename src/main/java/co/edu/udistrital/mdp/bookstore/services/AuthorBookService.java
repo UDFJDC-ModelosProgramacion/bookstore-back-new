@@ -63,7 +63,7 @@ public class AuthorBookService {
 	 * @param bookId   Identifier of the Book instance
 	 * @return Instance of BookEntity that was associated with the Author
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public BookEntity addBook(Long authorId, Long bookId) throws EntityNotFoundException {
 		log.info("Starting process to associate a book to the author with id = {0}", authorId);
 		Optional<AuthorEntity> authorOptional = authorRepository.findById(authorId);
@@ -91,7 +91,7 @@ public class AuthorBookService {
 	 * @return Collection of BookEntity instances associated with the Author
 	 *         instance
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public List<BookEntity> getBooks(Long authorId) throws EntityNotFoundException {
 		log.info("Starting process to fetch all books of the author with id = {0}", authorId);
 		Optional<AuthorEntity> authorOptional = authorRepository.findById(authorId);
@@ -110,7 +110,7 @@ public class AuthorBookService {
 	 * @param booksId   Identifier of the Book instance
 	 * @return The Book entity of the author
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class, IllegalOperationException.class })
 	public BookEntity getBook(Long authorId, Long bookId) throws EntityNotFoundException, IllegalOperationException {
 		log.info("Starting process to fetch book with id = {0} of author with id = " + authorId, bookId);
 		Optional<AuthorEntity> authorOptional = authorRepository.findById(authorId);
@@ -140,7 +140,7 @@ public class AuthorBookService {
 	 *                 Author instance
 	 * @return New collection of BookEntity associated with the Author instance
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public List<BookEntity> addBooks(Long authorId, List<BookEntity> books) throws EntityNotFoundException {
 		log.info("Starting process to replace books associated with author with id = {0}", authorId);
 		Optional<AuthorEntity> authorOptional = authorRepository.findById(authorId);
@@ -166,7 +166,7 @@ public class AuthorBookService {
 	 * @param authorsId Identifier of the Author instance
 	 * @param booksId   Identifier of the Book instance
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public void removeBook(Long authorId, Long bookId) throws EntityNotFoundException {
 		log.info("Starting process to remove a book from author with id = {0}", authorId);
 		Optional<AuthorEntity> authorOptional = authorRepository.findById(authorId);

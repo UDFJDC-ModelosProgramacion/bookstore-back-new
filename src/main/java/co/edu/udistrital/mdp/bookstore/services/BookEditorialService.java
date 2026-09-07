@@ -55,7 +55,7 @@ public class BookEditorialService {
 	 * @return the updated book.
 	 */
 
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public BookEntity replaceEditorial(Long bookId, Long editorialId) throws EntityNotFoundException {
 		log.info("Starting process to update book with id = {0}", bookId);
 		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
@@ -81,7 +81,7 @@ public class BookEditorialService {
 	 *
 	 * @param bookId The book whose editorial relationship is to be deleted.
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public void removeEditorial(Long bookId) throws EntityNotFoundException {
 		log.info("Starting process to delete the Editorial of the book with id = {0}", bookId);
 		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);

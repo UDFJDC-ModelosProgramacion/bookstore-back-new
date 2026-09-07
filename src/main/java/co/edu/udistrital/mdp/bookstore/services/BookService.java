@@ -58,7 +58,7 @@ public class BookService {
 	 * @throws IllegalOperationException If the ISBN is invalid or already exists in
 	 *                                   persistence, or if the publisher is invalid
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class, IllegalOperationException.class })
 	public BookEntity createBook(BookEntity bookEntity) throws EntityNotFoundException, IllegalOperationException {
 		log.info("Starting process to create book");
 
@@ -100,7 +100,7 @@ public class BookService {
 	 * @return The found book
 	 * @throws EntityNotFoundException If the book is not found
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public BookEntity getBook(Long bookId) throws EntityNotFoundException {
 		log.info("Starting process to fetch book with id = {0}", bookId);
 		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
@@ -121,7 +121,7 @@ public class BookService {
 	 * @throws IllegalOperationException If the updated ISBN is invalid
 	 * @throws EntityNotFoundException   If the book is not found
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class, IllegalOperationException.class })
 	public BookEntity updateBook(Long bookId, BookEntity book)
 			throws EntityNotFoundException, IllegalOperationException {
 		log.info("Starting process to update book with id = {0}", bookId);
@@ -144,7 +144,7 @@ public class BookService {
 	 * @throws IllegalOperationException If the book has associated authors
 	 * @throws EntityNotFoundException   If the book does not exist
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class, IllegalOperationException.class })
 	public void deleteBook(Long bookId) throws EntityNotFoundException, IllegalOperationException {
 		log.info("Starting process to delete book with id = {0}", bookId);
 		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);

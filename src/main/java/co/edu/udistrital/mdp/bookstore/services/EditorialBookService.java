@@ -27,7 +27,7 @@ package co.edu.udistrital.mdp.bookstore.services;
 import java.util.List;
 import java.util.Optional;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.stereotype.Service;
 
@@ -65,7 +65,7 @@ public class EditorialBookService {
 	 * @throws EntityNotFoundException
 	 */
 
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public BookEntity addBook(Long bookId, Long editorialId) throws EntityNotFoundException {
 		log.info("Starting process to add a book to the editorial with id = {0}", editorialId);
 
@@ -92,7 +92,7 @@ public class EditorialBookService {
 	 * @return The list of books belonging to the editorial
 	 * @throws EntityNotFoundException if the editorial does not exist
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public List<BookEntity> getBooks(Long editorialId) throws EntityNotFoundException {
 		log.info("Starting process to fetch books associated with editorial with id = {0}", editorialId);
 		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);
@@ -113,7 +113,7 @@ public class EditorialBookService {
 	 * @throws IllegalOperationException If the book is not associated with the
 	 *                                   editorial
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public BookEntity getBook(Long editorialId, Long bookId) throws EntityNotFoundException, IllegalOperationException {
 		log.info("Starting process to fetch book with id = {0} of editorial with id = " + editorialId, bookId);
 
@@ -145,7 +145,7 @@ public class EditorialBookService {
 	 * @throws EntityNotFoundException If the editorial or a book in the list is not
 	 *                                 found
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public List<BookEntity> replaceBooks(Long editorialId, List<BookEntity> books) throws EntityNotFoundException {
 		log.info("Starting process to update editorial with id = {0}", editorialId);
 		Optional<EditorialEntity> editorialOptional = editorialRepository.findById(editorialId);

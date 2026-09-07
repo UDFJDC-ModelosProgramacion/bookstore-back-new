@@ -62,7 +62,7 @@ public class AuthorService {
 	 * @return AuthorEntity object with new data and its ID.
 	 * @throws IllegalOperationException
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { IllegalOperationException.class })
 	public AuthorEntity createAuthor(AuthorEntity author) throws IllegalOperationException {
 		log.info("Starting process to create author");
 		Calendar calendar = Calendar.getInstance();
@@ -90,7 +90,7 @@ public class AuthorService {
 	 * @param authorId Identifier of the instance to retrieve
 	 * @return AuthorEntity instance with the queried Author data.
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public AuthorEntity getAuthor(Long authorId) throws EntityNotFoundException {
 		log.info("Starting process to fetch author with id = {0}", authorId);
 		Optional<AuthorEntity> authorOptional = authorRepository.findById(authorId);
@@ -110,7 +110,7 @@ public class AuthorService {
 	 * @param authorEntity AuthorEntity instance with the new data.
 	 * @return AuthorEntity instance with updated data.
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public AuthorEntity updateAuthor(Long authorId, AuthorEntity author) throws EntityNotFoundException {
 		log.info("Starting process to update author with id = {0}", authorId);
 		Optional<AuthorEntity> authorOptional = authorRepository.findById(authorId);
@@ -127,7 +127,7 @@ public class AuthorService {
 	 * @param authorId Identifier of the instance to delete.
 	 * @throws BusinessLogicException if the author has associated books.
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class, IllegalOperationException.class })
 	public void deleteAuthor(Long authorId) throws IllegalOperationException, EntityNotFoundException {
 		log.info("Starting process to delete author with id = {0}", authorId);
 		Optional<AuthorEntity> authorOptional = authorRepository.findById(authorId);

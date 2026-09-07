@@ -62,7 +62,7 @@ public class PrizeAuthorService {
 	 * @return The author that was associated with the prize.
 	 * @throws EntityNotFoundException
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public AuthorEntity addAuthor(Long authorId, Long prizeId) throws EntityNotFoundException {
 		log.info("Starting process to associate author with id = {0} to prize with id = " + prizeId, authorId);
 		Optional<AuthorEntity> autorOptional = authorRepository.findById(authorId);
@@ -90,7 +90,7 @@ public class PrizeAuthorService {
 	 * @throws EntityNotFoundException
 	 */
 
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public AuthorEntity getAuthor(Long prizeId) throws EntityNotFoundException {
 		log.info("Starting process to fetch the author of the prize with id = {0}", prizeId);
 		Optional<PrizeEntity> prizeOptional = prizeRepository.findById(prizeId);
@@ -116,7 +116,7 @@ public class PrizeAuthorService {
 	 * @throws EntityNotFoundException
 	 */
 
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public AuthorEntity replaceAuthor(Long prizeId, Long authorId) throws EntityNotFoundException {
 		log.info("Starting process to update the author of the prize with id = {0}", prizeId);
 		Optional<AuthorEntity> autorOptional = authorRepository.findById(authorId);
@@ -142,7 +142,7 @@ public class PrizeAuthorService {
 	 * @throws EntityNotFoundException If the prize does not have an author
 	 */
 
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public void removeAuthor(Long prizeId) throws EntityNotFoundException {
 		log.info("Starting process to delete the author of the prize with id = {0}", prizeId);
 		Optional<PrizeEntity> prizeOptional = prizeRepository.findById(prizeId);

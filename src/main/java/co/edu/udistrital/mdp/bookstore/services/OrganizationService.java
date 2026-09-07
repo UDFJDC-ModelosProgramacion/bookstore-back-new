@@ -61,7 +61,7 @@ public class OrganizationService {
 	 * @throws IllegalOperationException If the organization to persist already
 	 *                                   exists.
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { IllegalOperationException.class })
 	public OrganizationEntity createOrganization(OrganizationEntity organizationEntity)
 			throws IllegalOperationException {
 		log.info("Starting process to create organization");
@@ -89,7 +89,7 @@ public class OrganizationService {
 	 * @param organizationId: ID of the organization to search for.
 	 * @return The requested organization matching the ID.
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public OrganizationEntity getOrganization(Long organizationId) throws EntityNotFoundException {
 		log.info("Starting process to fetch organization with id = {0}", organizationId);
 		Optional<OrganizationEntity> organizationOptional = organizationRepository.findById(organizationId);
@@ -112,7 +112,7 @@ public class OrganizationService {
 	 *                        the name.
 	 * @return The organization with updated changes saved in the database.
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public OrganizationEntity updateOrganization(Long organizationId, OrganizationEntity organization)
 			throws EntityNotFoundException {
 		log.info("Starting process to update organization with id = {0}", organizationId);
@@ -132,7 +132,7 @@ public class OrganizationService {
 	 * @throws IllegalOperationException If the organization has an associated
 	 *                                   prize.
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class, IllegalOperationException.class })
 	public void deleteOrganization(Long organizationId) throws EntityNotFoundException, IllegalOperationException {
 		log.info("Starting process to delete organization with id = {0}", organizationId);
 		Optional<OrganizationEntity> organizationOptional = organizationRepository.findById(organizationId);

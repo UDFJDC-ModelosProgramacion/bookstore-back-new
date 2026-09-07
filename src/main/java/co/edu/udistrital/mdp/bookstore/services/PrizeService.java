@@ -63,7 +63,7 @@ public class PrizeService {
 	 *                                   already holds a prize.
 	 */
 
-	@Transactional
+	@Transactional(rollbackFor = { IllegalOperationException.class })
 	public PrizeEntity createPrize(PrizeEntity prizeEntity) throws IllegalOperationException {
 		log.info("Starting process to create prize");
 		if (prizeEntity.getOrganization() == null)
@@ -101,7 +101,7 @@ public class PrizeService {
 	 * @return The found prize
 	 * @throws EntityNotFoundException If the prize is not found
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public PrizeEntity getPrize(Long prizeId) throws EntityNotFoundException {
 		log.info("Starting process to fetch prize with id = {0}", prizeId);
 		Optional<PrizeEntity> prizeOptional = prizeRepository.findById(prizeId);
@@ -120,7 +120,7 @@ public class PrizeService {
 	 * @param prize   The prize entity containing the desired changes
 	 * @return The prize entity after updating it
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public PrizeEntity updatePrize(Long prizeId, PrizeEntity prize) throws EntityNotFoundException {
 		log.info("Starting process to update prize with id = {0}", prizeId);
 		Optional<PrizeEntity> prizeOptional = prizeRepository.findById(prizeId);
@@ -140,7 +140,7 @@ public class PrizeService {
 	 * @throws IllegalOperationException If the prize has an associated author.
 	 */
 
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class, IllegalOperationException.class })
 	public void deletePrize(Long prizeId) throws EntityNotFoundException, IllegalOperationException {
 		log.info("Starting process to delete prize with id = {0}", prizeId);
 		Optional<PrizeEntity> prizeOptional = prizeRepository.findById(prizeId);

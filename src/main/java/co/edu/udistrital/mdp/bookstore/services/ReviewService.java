@@ -63,7 +63,7 @@ public class ReviewService {
 	 * @throws EntityNotFoundException if the book does not exist.
 	 *
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public ReviewEntity createReview(Long bookId, ReviewEntity reviewEntity) throws EntityNotFoundException {
 		log.info("Starting process to create review");
 		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
@@ -84,7 +84,7 @@ public class ReviewService {
 	 * @return Collection of ReviewEntity objects.
 	 */
 
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public List<ReviewEntity> getReviews(Long bookId) throws EntityNotFoundException {
 		log.info("Starting process to fetch reviews associated with book with id = {0}", bookId);
 		Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
@@ -106,7 +106,7 @@ public class ReviewService {
 	 * @return ReviewEntity instance containing the data of the requested Review.
 	 *
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public ReviewEntity getReview(Long bookId, Long reviewId) throws EntityNotFoundException {
 		log.info("Starting process to fetch review with id = {0} of book with id = " + bookId,
 				reviewId);
@@ -133,7 +133,7 @@ public class ReviewService {
 	 * @return ReviewEntity instance with updated data.
 	 *
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class })
 	public ReviewEntity updateReview(Long bookId, Long reviewId, ReviewEntity review) throws EntityNotFoundException {
 		log.info("Starting process to update review with id = {0} of book with id = " + bookId,
 				reviewId);
@@ -163,7 +163,7 @@ public class ReviewService {
 	 * @throws IllegalOperationException
 	 *
 	 */
-	@Transactional
+	@Transactional(rollbackFor = { EntityNotFoundException.class, IllegalOperationException.class })
 	public void deleteReview(Long bookId, Long reviewId) throws EntityNotFoundException, IllegalOperationException {
 		log.info("Starting process to delete review with id = {0} of book with id = " + bookId,
 				reviewId);
