@@ -29,6 +29,7 @@ import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Data
 public class ApiError {
@@ -39,7 +40,7 @@ public class ApiError {
     private String message;
 
     private ApiError() {
-        timestamp = LocalDateTime.now();
+        timestamp = LocalDateTime.now(ZoneId.systemDefault());
     }
 
     public ApiError(HttpStatus status) {
