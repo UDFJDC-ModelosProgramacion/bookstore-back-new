@@ -49,11 +49,10 @@ public class DateStrategy implements AttributeStrategy<Date> {
 		c.set(Calendar.SECOND, c.getActualMinimum(Calendar.SECOND));
 		c.set(Calendar.MILLISECOND, c.getActualMinimum(Calendar.MILLISECOND));
 
-		LocalDate calendarDate = c.toInstant()
+		return c.toInstant()
 				.atZone(ZoneId.systemDefault())
 				.toLocalDate();
 
-		return calendarDate;
 	}
 
 	@Override
